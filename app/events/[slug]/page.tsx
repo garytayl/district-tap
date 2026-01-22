@@ -4,10 +4,10 @@ import Link from "next/link"
 import { PageHeader } from "@/components/site/PageHeader"
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
-import { events } from "@/lib/site-data"
+import { fetchEventBySlug } from "@/lib/sanity"
 
-export default function EventDetailPage({ params }: { params: { slug: string } }) {
-  const event = events.find((item) => item.slug === params.slug)
+export default async function EventDetailPage({ params }: { params: { slug: string } }) {
+  const event = await fetchEventBySlug(params.slug)
 
   if (!event) {
     notFound()
@@ -23,7 +23,7 @@ export default function EventDetailPage({ params }: { params: { slug: string } }
         <div className="flex flex-wrap gap-2">
           <Badge>{event.dateLabel}</Badge>
           <Badge>{event.timeLabel}</Badge>
-          <Badge>{event.locationId === "both" ? "Both locations" : event.locationId}</Badge>
+          {event.locationLabel ? <Badge>{event.locationLabel}</Badge> : null}
         </div>
       </PageHeader>
 

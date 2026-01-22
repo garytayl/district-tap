@@ -1,18 +1,23 @@
 import { PageHeader } from "@/components/site/PageHeader"
 import { Card } from "@/components/ui/Card"
-import { allergenNotice, downtownMenu } from "@/lib/site-data"
+import { fetchMenuBySlug } from "@/lib/sanity"
 
-export default function DowntownMenuPage() {
+export default async function DowntownMenuPage() {
+  const menu = await fetchMenuBySlug("downtown")
+
+  if (!menu) {
+    return null
+  }
   return (
     <main className="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-16">
       <PageHeader
         eyebrow="Downtown Menu"
-        title="Downtown lunch + dinner"
-        description="Signature starters, handhelds, and entrees built for game day and late night."
+        title={menu.title}
+        description={menu.subtitle ?? "Signature starters, handhelds, and entrees built for game day and late night."}
       />
 
       <div className="grid gap-6">
-        {downtownMenu.map((category) => (
+        {menu.categories.map((category) => (
           <Card key={category.title}>
             <h2 className="text-xl font-semibold">{category.title}</h2>
             {category.description ? <p className="text-sm text-black/60">{category.description}</p> : null}
@@ -32,7 +37,7 @@ export default function DowntownMenuPage() {
       </div>
 
       <Card>
-        <p className="text-sm text-black/60">{allergenNotice}</p>
+        <p className="text-sm text-black/60">{menu.allergenNotice}</p>
         <a href="/food-safety" className="mt-3 inline-flex text-sm font-semibold text-black/60 hover:text-black">
           Food safety details →
         </a>

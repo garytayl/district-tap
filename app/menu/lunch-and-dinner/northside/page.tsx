@@ -1,18 +1,23 @@
 import { PageHeader } from "@/components/site/PageHeader"
 import { Card } from "@/components/ui/Card"
-import { allergenNotice, northsideMenu } from "@/lib/site-data"
+import { fetchMenuBySlug } from "@/lib/sanity"
 
-export default function NorthsideMenuPage() {
+export default async function NorthsideMenuPage() {
+  const menu = await fetchMenuBySlug("northside")
+
+  if (!menu) {
+    return null
+  }
   return (
     <main className="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-16">
       <PageHeader
         eyebrow="Northside Menu"
-        title="Northside lunch + dinner"
-        description="From wings to burgers and pizzas, this menu keeps the classics tight." 
+        title={menu.title}
+        description={menu.subtitle ?? "From wings to burgers and pizzas, this menu keeps the classics tight."}
       />
 
       <div className="grid gap-6">
-        {northsideMenu.map((category) => (
+        {menu.categories.map((category) => (
           <Card key={category.title}>
             <h2 className="text-xl font-semibold">{category.title}</h2>
             <ul className="mt-4 space-y-3 text-sm">
@@ -31,7 +36,7 @@ export default function NorthsideMenuPage() {
       </div>
 
       <Card>
-        <p className="text-sm text-black/60">{allergenNotice}</p>
+        <p className="text-sm text-black/60">{menu.allergenNotice}</p>
         <a href="/food-safety" className="mt-3 inline-flex text-sm font-semibold text-black/60 hover:text-black">
           Food safety details →
         </a>

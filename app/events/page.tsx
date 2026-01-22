@@ -3,9 +3,10 @@ import Link from "next/link"
 import { PageHeader } from "@/components/site/PageHeader"
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
-import { events } from "@/lib/site-data"
+import { fetchEvents } from "@/lib/sanity"
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events = await fetchEvents()
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-16">
       <PageHeader
