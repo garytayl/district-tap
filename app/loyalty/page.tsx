@@ -11,7 +11,10 @@ export default function LoyaltyPage() {
         title="Damn Good Rewards"
         description="Earn points every time you visit and turn them into your next meal or round."
       >
-        <Button href="https://toasttab.com/" variant="secondary">
+        <Button
+          href="https://www.toasttab.com/the-district-tap-keystone-3720-east-82nd-street/rewardsSignup"
+          variant="secondary"
+        >
           Join the Loyalty Program
         </Button>
       </PageHeader>
