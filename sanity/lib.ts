@@ -11,4 +11,10 @@ export const sanityConfig = {
   useCdn: false,
 }
 
-export const sanityClient = createClient(sanityConfig)
+export function getSanityClient() {
+  if (!projectId) {
+    throw new Error("Sanity projectId is missing.")
+  }
+
+  return createClient(sanityConfig)
+}

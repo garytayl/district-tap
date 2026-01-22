@@ -8,7 +8,7 @@ import {
   events as fallbackEvents,
   northsideMenu,
 } from "@/lib/site-data"
-import { sanityClient } from "@/sanity/lib"
+import { getSanityClient } from "@/sanity/lib"
 
 export type SanityMenuItem = {
   name: string
@@ -141,7 +141,7 @@ export async function fetchMenus(): Promise<SanityMenu[]> {
     return Object.values(fallbackMenus)
   }
 
-  return sanityClient.fetch(menusQuery)
+  return getSanityClient().fetch(menusQuery)
 }
 
 export async function fetchMenuBySlug(slug: string): Promise<SanityMenu | null> {
@@ -149,7 +149,7 @@ export async function fetchMenuBySlug(slug: string): Promise<SanityMenu | null> 
     return fallbackMenus[slug] ?? null
   }
 
-  return sanityClient.fetch(menuQuery, { slug })
+  return getSanityClient().fetch(menuQuery, { slug })
 }
 
 export async function fetchEvents(): Promise<SanityEvent[]> {
@@ -168,7 +168,7 @@ export async function fetchEvents(): Promise<SanityEvent[]> {
     }))
   }
 
-  return sanityClient.fetch(eventsQuery)
+  return getSanityClient().fetch(eventsQuery)
 }
 
 export async function fetchEventBySlug(slug: string): Promise<SanityEvent | null> {
@@ -190,5 +190,5 @@ export async function fetchEventBySlug(slug: string): Promise<SanityEvent | null
       : null
   }
 
-  return sanityClient.fetch(eventQuery, { slug })
+  return getSanityClient().fetch(eventQuery, { slug })
 }
