@@ -49,7 +49,7 @@ export type EventSpace = {
 export const quickActions = [
   {
     label: "Delivery + Carry-out",
-    href: "https://order.online/",
+    href: "https://order.online/store/the-district-tap-northside-52264",
   },
   {
     label: "Book an Event",
@@ -57,7 +57,7 @@ export const quickActions = [
   },
   {
     label: "Order Catering",
-    href: "https://order.online/",
+    href: "https://order.online/store/the-district-tap-northside-52264",
   },
 ]
 
@@ -113,7 +113,7 @@ export const locations: Record<Location["id"], Location> = {
       "Brunch: Sun 11 AM - 3 PM",
     ],
     mapUrl: "https://maps.google.com/?q=3720+E+82nd+St+Indianapolis+IN",
-    orderUrl: "https://order.online/",
+    orderUrl: "https://order.online/store/the-district-tap-northside-52264",
   },
   downtown: {
     id: "downtown",
@@ -129,7 +129,7 @@ export const locations: Record<Location["id"], Location> = {
       "Happy Hour: Daily 3 PM - 6 PM",
     ],
     mapUrl: "https://maps.google.com/?q=141+S+Meridian+St+Indianapolis+IN",
-    orderUrl: "https://order.online/",
+    orderUrl: "https://order.online/store/the-district-tap-northside-52264",
   },
 }
 
