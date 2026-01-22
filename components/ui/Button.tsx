@@ -1,58 +1,61 @@
+import * as React from "react"
 import Link from "next/link"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-type ButtonProps = {
-  href?: string
-  variant?: "primary" | "secondary" | "outline" | "ghost"
-  size?: "sm" | "md" | "lg"
-  className?: string
-  children: React.ReactNode
-} & React.ButtonHTMLAttributes<HTMLButtonElement>
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+  {
+    variants: {
+      variant: {
+        primary: "bg-black text-white hover:bg-neutral-900",
+        secondary: "bg-amber-500 text-black hover:bg-amber-400",
+        outline: "border border-black/15 text-black hover:border-black hover:bg-black/5",
+        ghost: "text-black hover:bg-black/5",
+      },
+      size: {
+        sm: "px-3 py-1.5",
+        md: "px-4 py-2",
+        lg: "px-6 py-3 text-base",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
+    },
+  },
+)
 
-const baseStyles =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-50"
-
-const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
-  primary: "bg-black text-white hover:bg-neutral-900",
-  secondary: "bg-amber-500 text-black hover:bg-amber-400",
-  outline: "border border-black/15 text-black hover:border-black hover:bg-black/5",
-  ghost: "text-black hover:bg-black/5",
-}
-
-const sizes: Record<NonNullable<ButtonProps["size"]>, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-sm",
-  lg: "px-6 py-3 text-base",
-}
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+    href?: string
+  }
 
 export function Button({
-  href,
-  variant = "primary",
-  size = "md",
   className,
-  children,
+  variant,
+  size,
+  asChild = false,
+  href,
   ...props
 }: ButtonProps) {
-  const classes = cn(baseStyles, variants[variant], sizes[size], className)
+  const classes = cn(buttonVariants({ variant, size, className }))
 
   if (href) {
     const external = href.startsWith("http")
     return (
-      <Link
-        href={href}
-        className={classes}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noreferrer" : undefined}
-      >
-        {children}
+      <Link href={href} className={classes} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>
+        {props.children}
       </Link>
     )
   }
 
-  return (
-    <button className={classes} {...props}>
-      {children}
-    </button>
-  )
+  const Comp = asChild ? Slot : "button"
+
+  return <Comp className={classes} {...props} />
 }
+
+export { buttonVariants }

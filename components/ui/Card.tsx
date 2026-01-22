@@ -1,14 +1,15 @@
+import * as React from "react"
+
 import { cn } from "@/lib/utils"
 
-type CardProps = {
-  className?: string
-  children: React.ReactNode
-}
-
-export function Card({ className, children }: CardProps) {
+function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("rounded-3xl border border-black/10 bg-white p-6 shadow-sm", className)}>
-      {children}
-    </div>
+    <div
+      data-slot="card"
+      className={cn("bg-white text-black flex flex-col gap-6 rounded-3xl border border-black/10 p-6 shadow-sm", className)}
+      {...props}
+    />
   )
 }
+
+export { Card }
