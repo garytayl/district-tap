@@ -39,6 +39,7 @@ function normalizePhone(phone: string) {
 }
 
 export default function MobileExperience() {
+  const [step, setStep] = useState<"welcome" | "location" | "experience">("welcome")
   const [selectedLocationId, setSelectedLocationId] = useState<keyof typeof locations | null>(null)
   const selectedLocation = useMemo(
     () => (selectedLocationId ? locations[selectedLocationId] : null),
@@ -59,73 +60,45 @@ export default function MobileExperience() {
 
   return (
     <main className="min-h-screen bg-neutral-950 text-white">
-      <div className="mx-auto flex w-full max-w-2xl flex-col gap-8 px-6 pb-20 pt-10 sm:pt-16">
+      <div className="mx-auto flex w-full max-w-2xl flex-col px-6 pb-16 pt-10 sm:pt-16">
         <div className="flex items-center justify-between gap-3">
-          <Badge variant="light">Welcome</Badge>
+          <Badge variant="light">District Tap</Badge>
           <Link href="/" className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white">
             Exit
           </Link>
         </div>
 
-        <div className="space-y-4">
-          <h1 className="text-3xl font-semibold sm:text-4xl">Where will you be dining today?</h1>
-          <p className="text-sm text-white/70">
-            Pick a location to unlock menus, dine-in details, and quick delivery options. Tap a spot to get started.
-          </p>
-        </div>
-
-        <section className="space-y-4">
-          <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-white/50">
-            <span>Step 1</span>
-            <span>Pick your spot</span>
-          </div>
-          <Card className="border-white/10 bg-white/5 text-white">
-            <div className="space-y-3">
-              <p className="text-sm font-semibold">Map Preview</p>
-              <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/40">
-                <div className="aspect-[4/3] w-full">
-                  {mapEmbedUrl ? (
-                    <iframe
-                      title={`${selectedLocation?.name ?? "District Tap"} map`}
-                      src={mapEmbedUrl}
-                      className="h-full w-full"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center text-sm text-white/70">
-                      <span className="rounded-full border border-white/20 px-3 py-1 text-xs uppercase tracking-[0.3em]">
-                        Map
-                      </span>
-                      <p>Select a location to view directions.</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-              {selectedLocation ? (
-                <div className="flex flex-wrap items-center gap-3 text-sm text-white/70">
-                  <span>{selectedLocation.addressLines.join(", ")}</span>
-                  <Button href={selectedLocation.mapUrl} variant="outline" size="sm" className="border-white/30 text-white">
-                    Open in Maps
-                  </Button>
-                </div>
-              ) : null}
+        {step === "welcome" ? (
+          <section className="flex min-h-[70vh] flex-col justify-center gap-6">
+            <div className="space-y-4">
+              <h1 className="text-4xl font-semibold sm:text-5xl">Welcome!</h1>
+              <p className="text-sm text-white/70">
+                We made a mobile-first experience just for you. Ready to start your visit?
+              </p>
             </div>
-          </Card>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {locationOptions.map((location) => {
-              const isActive = selectedLocationId === location.id
-              return (
+            <Button variant="secondary" size="lg" onClick={() => setStep("location")}>
+              Start
+            </Button>
+          </section>
+        ) : null}
+
+        {step === "location" ? (
+          <section className="flex min-h-[70vh] flex-col gap-6 pt-8">
+            <div className="space-y-2">
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Step 1</p>
+              <h2 className="text-3xl font-semibold">Where will you be dining today?</h2>
+              <p className="text-sm text-white/70">Choose a location to continue.</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {locationOptions.map((location) => (
                 <button
                   key={location.id}
                   type="button"
-                  onClick={() => setSelectedLocationId(location.id)}
-                  aria-pressed={isActive}
-                  className={`flex h-full flex-col gap-3 rounded-3xl border px-6 py-5 text-left transition ${
-                    isActive
-                      ? "border-amber-400 bg-amber-400/15 shadow-[0_0_35px_rgba(251,191,36,0.2)]"
-                      : "border-white/10 bg-white/5 hover:border-white/40"
-                  }`}
+                  onClick={() => {
+                    setSelectedLocationId(location.id)
+                    setStep("experience")
+                  }}
+                  className="flex h-full flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-left transition hover:border-white/40"
                 >
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-white/60">{location.name}</p>
@@ -134,74 +107,82 @@ export default function MobileExperience() {
                   </div>
                   <span className="text-xs uppercase tracking-[0.3em] text-white/50">{location.phone}</span>
                 </button>
-              )
-            })}
-          </div>
-        </section>
+              ))}
+            </div>
+            <Button variant="outline" size="sm" className="border-white/30 text-white" onClick={() => setStep("welcome")}>
+              Back
+            </Button>
+          </section>
+        ) : null}
 
-        <section className="space-y-4">
-          <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-white/50">
-            <span>Step 2</span>
-            <span>Choose your vibe</span>
-          </div>
-          <Card className="border-white/10 bg-white/5 text-white">
-            {selectedLocation ? (
-              <div className="space-y-6">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/50">Selected</p>
-                  <p className="text-xl font-semibold">{selectedLocation.name}</p>
-                  <p className="text-sm text-white/60">{selectedLocation.addressLines.join(", ")}</p>
+        {step === "experience" && selectedLocation ? (
+          <section className="flex min-h-[70vh] flex-col gap-6 pt-8">
+            <div className="space-y-2">
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Step 2</p>
+              <h2 className="text-3xl font-semibold">How do you want to order?</h2>
+              <p className="text-sm text-white/70">{selectedLocation.name} is selected.</p>
+            </div>
+            <div className="grid gap-4">
+              <button
+                type="button"
+                className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left transition hover:border-white/40"
+              >
+                <p className="text-sm font-semibold">Browse the menu</p>
+                <p className="text-sm text-white/60">See lunch, dinner, and drinks.</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button href={menuConfig?.href ?? "/menu"} variant="secondary" size="sm">
+                    {menuConfig?.label ?? "View Menu"}
+                  </Button>
+                  <Button href={menuConfig?.drinksHref ?? "/menu/drinks"} variant="outline" size="sm" className="border-white/30 text-white">
+                    Drinks Menu
+                  </Button>
                 </div>
-                <div className="grid gap-4">
-                  <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-sm font-semibold">Browse the menu</p>
-                    <p className="text-sm text-white/60">See lunch, dinner, and drinks for this location.</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <Button href={menuConfig?.href ?? "/menu"} variant="secondary" size="sm">
-                        {menuConfig?.label ?? "View Menu"}
-                      </Button>
-                      <Button href={menuConfig?.drinksHref ?? "/menu/drinks"} variant="outline" size="sm" className="border-white/30 text-white">
-                        Drinks Menu
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-sm font-semibold">Dine in</p>
-                    <p className="text-sm text-white/60">Plan your visit, call ahead, or get directions.</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <Button asChild variant="outline" size="sm" className="border-white/30 text-white">
-                        <a href={normalizePhone(selectedLocation.phone)}>Call {selectedLocation.phone}</a>
-                      </Button>
-                      <Button href={selectedLocation.mapUrl} variant="outline" size="sm" className="border-white/30 text-white">
-                        Directions
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-sm font-semibold">Delivery + takeout</p>
-                    <p className="text-sm text-white/60">
-                      We will send you to DoorDash (or our delivery partner) to complete the order.
-                    </p>
-                    <div className="mt-4">
-                      <Button href={selectedLocation.orderUrl} variant="secondary" size="sm">
-                        Go to delivery / takeout
-                      </Button>
-                    </div>
-                  </div>
+              </button>
+              <button
+                type="button"
+                className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left transition hover:border-white/40"
+              >
+                <p className="text-sm font-semibold">Dine in</p>
+                <p className="text-sm text-white/60">Call or get directions.</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button asChild variant="outline" size="sm" className="border-white/30 text-white">
+                    <a href={normalizePhone(selectedLocation.phone)}>Call {selectedLocation.phone}</a>
+                  </Button>
+                  <Button href={selectedLocation.mapUrl} variant="outline" size="sm" className="border-white/30 text-white">
+                    Directions
+                  </Button>
                 </div>
-                <button
-                  type="button"
-                  className="text-xs uppercase tracking-[0.3em] text-white/40 hover:text-white"
-                  onClick={() => setSelectedLocationId(null)}
-                >
-                  Start over
-                </button>
-              </div>
-            ) : (
-              <div className="text-sm text-white/60">Choose a location above and the next steps will light up.</div>
-            )}
-          </Card>
-        </section>
+              </button>
+              <button
+                type="button"
+                className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left transition hover:border-white/40"
+              >
+                <p className="text-sm font-semibold">Delivery + takeout</p>
+                <p className="text-sm text-white/60">Head to delivery to complete your order.</p>
+                <div className="mt-4">
+                  <Button href={selectedLocation.orderUrl} variant="secondary" size="sm">
+                    Go to delivery / takeout
+                  </Button>
+                </div>
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-white/30 text-white"
+                onClick={() => setStep("location")}
+              >
+                Change location
+              </Button>
+              {mapEmbedUrl ? (
+                <Button href={selectedLocation.mapUrl} variant="outline" size="sm" className="border-white/30 text-white">
+                  Open map
+                </Button>
+              ) : null}
+            </div>
+          </section>
+        ) : null}
       </div>
     </main>
   )
