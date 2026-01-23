@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/Button"
@@ -8,6 +9,9 @@ export function Footer() {
     <footer className="border-t border-black/10 bg-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 lg:grid-cols-[2fr_1fr_1fr]">
         <div className="space-y-4">
+          <div className="relative h-12 w-12">
+            <Image src="/logo_mark.png" alt="The District Tap logo mark" fill className="object-contain" />
+          </div>
           <h2 className="text-xl font-semibold">The District Tap</h2>
           <p className="text-sm text-black/60">
             Craft beer, cocktails, and damn good food with two Indianapolis locations. Join us for live music, game day,
