@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import Link from "next/link"
 
 import { Badge } from "@/components/ui/Badge"
@@ -40,6 +40,8 @@ function normalizePhone(phone: string) {
 export default function MobileExperience() {
   const [step, setStep] = useState<"welcome" | "location" | "experience">("welcome")
   const [selectedLocationId, setSelectedLocationId] = useState<keyof typeof locations | null>(null)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const selectedLocation = useMemo(
     () => (selectedLocationId ? locations[selectedLocationId] : null),
     [selectedLocationId],
@@ -52,13 +54,33 @@ export default function MobileExperience() {
     }
   }, [])
 
+  useEffect(() => {
+    return () => {
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current)
+      }
+    }
+  }, [])
+
   const menuConfig = selectedLocation ? menuByLocation[selectedLocation.id] : null
   const mapEmbedUrl = selectedLocation
     ? getMapEmbedUrl(selectedLocation.mapUrl, selectedLocation.addressLines.join(", "))
     : null
 
+  const advanceStep = (nextStep: "welcome" | "location" | "experience", beforeStep?: () => void) => {
+    if (transitionTimeoutRef.current) {
+      clearTimeout(transitionTimeoutRef.current)
+    }
+    setIsTransitioning(true)
+    transitionTimeoutRef.current = setTimeout(() => {
+      beforeStep?.()
+      setStep(nextStep)
+      setIsTransitioning(false)
+    }, 220)
+  }
+
   return (
-    <main className="relative min-h-[100svh] overflow-hidden bg-neutral-950 text-white">
+    <main className="relative min-h-[100svh] overflow-x-hidden bg-neutral-950 text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-20 top-10 h-56 w-56 rounded-full bg-amber-500/20 blur-3xl" />
         <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-orange-500/20 blur-[100px]" />
@@ -94,7 +116,12 @@ export default function MobileExperience() {
         </div>
 
         {step === "welcome" ? (
-          <section key="welcome" className="flex min-h-[82svh] flex-col justify-center gap-10 animate-in fade-in-0 slide-in-from-bottom-8">
+          <section
+            key="welcome"
+            className={`flex min-h-[82svh] flex-col justify-center gap-10 transition-all duration-300 ${
+              isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+            } animate-in fade-in-0 slide-in-from-bottom-8`}
+          >
             <div className="space-y-5">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Mobile experience</p>
               <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">Welcome to your District Tap visit.</h1>
@@ -106,7 +133,7 @@ export default function MobileExperience() {
               variant="secondary"
               size="lg"
               className="text-base sm:text-lg active:scale-[0.98] transition"
-              onClick={() => setStep("location")}
+              onClick={() => advanceStep("location")}
             >
               Start the experience
             </Button>
@@ -114,7 +141,12 @@ export default function MobileExperience() {
         ) : null}
 
         {step === "location" ? (
-          <section key="location" className="flex min-h-[82svh] flex-col gap-8 pt-6 animate-in fade-in-0 slide-in-from-bottom-8">
+          <section
+            key="location"
+            className={`flex min-h-[82svh] flex-col gap-8 pt-6 transition-all duration-300 ${
+              isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+            } animate-in fade-in-0 slide-in-from-bottom-8`}
+          >
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Step 1</p>
               <h2 className="text-4xl font-semibold sm:text-5xl">Where will you be dining today?</h2>
@@ -126,8 +158,7 @@ export default function MobileExperience() {
                   key={location.id}
                   type="button"
                   onClick={() => {
-                    setSelectedLocationId(location.id)
-                    setStep("experience")
+                    advanceStep("experience", () => setSelectedLocationId(location.id))
                   }}
                   className={`glass-tile flex h-full flex-col gap-5 px-7 py-8 text-left active:scale-[0.98] ${
                     index === 0 ? "border-amber-400/40 bg-amber-400/10 glass-glow" : ""
@@ -146,7 +177,7 @@ export default function MobileExperience() {
               variant="outline"
               size="sm"
               className="border-white/30 text-white active:scale-[0.98] transition"
-              onClick={() => setStep("welcome")}
+              onClick={() => advanceStep("welcome")}
             >
               Back
             </Button>
@@ -154,7 +185,12 @@ export default function MobileExperience() {
         ) : null}
 
         {step === "experience" && selectedLocation ? (
-          <section key="experience" className="flex min-h-[82svh] flex-col gap-8 pt-6 animate-in fade-in-0 slide-in-from-bottom-8">
+          <section
+            key="experience"
+            className={`flex min-h-[82svh] flex-col gap-8 pt-6 transition-all duration-300 ${
+              isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+            } animate-in fade-in-0 slide-in-from-bottom-8`}
+          >
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Step 2</p>
               <h2 className="text-4xl font-semibold sm:text-5xl">Choose your vibe.</h2>
@@ -234,7 +270,7 @@ export default function MobileExperience() {
                 variant="outline"
                 size="sm"
                 className="border-white/30 text-white active:scale-[0.98] transition"
-                onClick={() => setStep("location")}
+                onClick={() => advanceStep("location")}
               >
                 Change location
               </Button>
