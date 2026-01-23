@@ -467,6 +467,9 @@ export const loyaltyBenefits = [
 export const loyaltySignupUrl =
   "https://www.toasttab.com/the-district-tap-keystone-3720-east-82nd-street/rewardsSignup"
 
+export const giftCardOrderUrl =
+  "https://order.toasttab.com/egiftcards/the-district-tap-downtown-141-south-meridian-street"
+
 export const staffContacts = [
   { name: "Michael Cranfill", role: "Proprietor", email: "michael@thedistricttap.com" },
   { name: "Nikki Snodgrass", role: "Events + Catering Manager", email: "events@thedistricttap.com" },

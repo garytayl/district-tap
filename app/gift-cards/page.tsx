@@ -1,6 +1,7 @@
 import { PageHeader } from "@/components/site/PageHeader"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
+import { giftCardOrderUrl } from "@/lib/site-data"
 
 export default function GiftCardsPage() {
   return (
@@ -10,7 +11,7 @@ export default function GiftCardsPage() {
         title="Give the gift of The District Tap"
         description="Physical or digital gift cards available for any occasion."
       >
-        <Button href="https://www.securetree.com/" variant="secondary">
+        <Button href={giftCardOrderUrl} variant="secondary">
           Buy Gift Cards
         </Button>
       </PageHeader>
