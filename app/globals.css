@@ -119,6 +119,9 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply bg-neutral-950;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -130,6 +133,10 @@
 .experience-mode header,
 .experience-mode footer {
   display: none;
+}
+
+body.experience-mode {
+  background-color: #0a0a0a;
 }
 
 .glass-panel {
