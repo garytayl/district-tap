@@ -58,8 +58,16 @@ export default function MobileExperience() {
     : null
 
   return (
-    <main className="min-h-[100svh] bg-neutral-950 text-white">
-      <div className="mx-auto flex w-full flex-col px-6 pb-20 pt-8 sm:px-10 sm:pt-12">
+    <main className="relative min-h-[100svh] overflow-hidden bg-neutral-950 text-white">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-20 top-10 h-56 w-56 rounded-full bg-amber-500/20 blur-3xl" />
+        <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-orange-500/20 blur-[100px]" />
+        <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-red-500/10 blur-[120px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay" />
+      </div>
+
+      <div className="relative mx-auto flex w-full flex-col px-6 pb-24 pt-6 sm:px-10 sm:pt-10">
         <div className="flex items-center justify-between gap-3">
           <Badge variant="light">District Tap</Badge>
           <Link href="/" className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white">
@@ -67,29 +75,36 @@ export default function MobileExperience() {
           </Link>
         </div>
 
+        <div className="mt-6 flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] text-white/40">
+          <span className={`h-2 w-2 rounded-full ${step === "welcome" ? "bg-amber-400" : "bg-white/20"}`} />
+          <span className={`h-2 w-2 rounded-full ${step === "location" ? "bg-amber-400" : "bg-white/20"}`} />
+          <span className={`h-2 w-2 rounded-full ${step === "experience" ? "bg-amber-400" : "bg-white/20"}`} />
+        </div>
+
         {step === "welcome" ? (
-          <section className="flex min-h-[80svh] flex-col justify-center gap-8">
-            <div className="space-y-4">
-              <h1 className="text-5xl font-semibold sm:text-6xl">Welcome!</h1>
-              <p className="text-base text-white/70 sm:text-lg">
-                We made a mobile-first experience just for you. Ready to start your visit?
+          <section key="welcome" className="flex min-h-[82svh] flex-col justify-center gap-10 animate-in fade-in-0 slide-in-from-bottom-8">
+            <div className="space-y-5">
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Mobile experience</p>
+              <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">Welcome to your District Tap visit.</h1>
+              <p className="text-lg text-white/70 sm:text-xl">
+                Tap through a fast, fun flow built for mobile. Big buttons. Quick choices. Zero clutter.
               </p>
             </div>
             <Button variant="secondary" size="lg" className="text-base sm:text-lg" onClick={() => setStep("location")}>
-              Start
+              Start the experience
             </Button>
           </section>
         ) : null}
 
         {step === "location" ? (
-          <section className="flex min-h-[80svh] flex-col gap-8 pt-8">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Step 1</p>
+          <section key="location" className="flex min-h-[82svh] flex-col gap-8 pt-6 animate-in fade-in-0 slide-in-from-bottom-8">
+            <div className="space-y-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Step 1</p>
               <h2 className="text-4xl font-semibold sm:text-5xl">Where will you be dining today?</h2>
               <p className="text-base text-white/70 sm:text-lg">Choose a location to continue.</p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
-              {locationOptions.map((location) => (
+              {locationOptions.map((location, index) => (
                 <button
                   key={location.id}
                   type="button"
@@ -97,10 +112,14 @@ export default function MobileExperience() {
                     setSelectedLocationId(location.id)
                     setStep("experience")
                   }}
-                  className="flex h-full flex-col gap-4 rounded-[32px] border border-white/10 bg-white/5 px-7 py-7 text-left transition hover:border-white/40"
+                  className={`flex h-full flex-col gap-5 rounded-[36px] border px-7 py-8 text-left transition hover:border-white/50 ${
+                    index === 0
+                      ? "border-amber-400/40 bg-amber-400/10"
+                      : "border-white/10 bg-white/5"
+                  }`}
                 >
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/60">{location.name}</p>
+                  <div className="space-y-2">
+                    <p className="text-xs uppercase tracking-[0.35em] text-white/60">{location.name}</p>
                     <p className="text-2xl font-semibold sm:text-3xl">{location.addressLines[0]}</p>
                     <p className="text-base text-white/60 sm:text-lg">{location.addressLines[1]}</p>
                   </div>
@@ -115,20 +134,20 @@ export default function MobileExperience() {
         ) : null}
 
         {step === "experience" && selectedLocation ? (
-          <section className="flex min-h-[80svh] flex-col gap-8 pt-8">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Step 2</p>
-              <h2 className="text-4xl font-semibold sm:text-5xl">How do you want to order?</h2>
+          <section key="experience" className="flex min-h-[82svh] flex-col gap-8 pt-6 animate-in fade-in-0 slide-in-from-bottom-8">
+            <div className="space-y-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Step 2</p>
+              <h2 className="text-4xl font-semibold sm:text-5xl">Choose your vibe.</h2>
               <p className="text-base text-white/70 sm:text-lg">{selectedLocation.name} is selected.</p>
             </div>
             <div className="grid gap-5">
               <button
                 type="button"
-                className="rounded-[32px] border border-white/10 bg-white/5 p-6 text-left transition hover:border-white/40 sm:p-7"
+                className="rounded-[36px] border border-white/10 bg-white/5 p-7 text-left transition hover:border-white/50"
               >
-                <p className="text-lg font-semibold sm:text-2xl">Browse the menu</p>
+                <p className="text-xl font-semibold sm:text-2xl">Browse the menu</p>
                 <p className="text-base text-white/60 sm:text-lg">See lunch, dinner, and drinks.</p>
-                <div className="mt-5 flex flex-wrap gap-3">
+                <div className="mt-6 flex flex-wrap gap-3">
                   <Button href={menuConfig?.href ?? "/menu"} variant="secondary" size="lg" className="text-base sm:text-lg">
                     {menuConfig?.label ?? "View Menu"}
                   </Button>
@@ -144,11 +163,11 @@ export default function MobileExperience() {
               </button>
               <button
                 type="button"
-                className="rounded-[32px] border border-white/10 bg-white/5 p-6 text-left transition hover:border-white/40 sm:p-7"
+                className="rounded-[36px] border border-white/10 bg-white/5 p-7 text-left transition hover:border-white/50"
               >
-                <p className="text-lg font-semibold sm:text-2xl">Dine in</p>
+                <p className="text-xl font-semibold sm:text-2xl">Dine in</p>
                 <p className="text-base text-white/60 sm:text-lg">Call or get directions.</p>
-                <div className="mt-5 flex flex-wrap gap-3">
+                <div className="mt-6 flex flex-wrap gap-3">
                   <Button asChild variant="outline" size="lg" className="border-white/30 text-white text-base sm:text-lg">
                     <a href={normalizePhone(selectedLocation.phone)}>Call {selectedLocation.phone}</a>
                   </Button>
@@ -158,17 +177,17 @@ export default function MobileExperience() {
                     size="lg"
                     className="border-white/30 text-white text-base sm:text-lg"
                   >
-                    Directions
+                    Open map
                   </Button>
                 </div>
               </button>
               <button
                 type="button"
-                className="rounded-[32px] border border-white/10 bg-white/5 p-6 text-left transition hover:border-white/40 sm:p-7"
+                className="rounded-[36px] border border-white/10 bg-white/5 p-7 text-left transition hover:border-white/50"
               >
-                <p className="text-lg font-semibold sm:text-2xl">Delivery + takeout</p>
+                <p className="text-xl font-semibold sm:text-2xl">Delivery + takeout</p>
                 <p className="text-base text-white/60 sm:text-lg">Head to delivery to complete your order.</p>
-                <div className="mt-5">
+                <div className="mt-6">
                   <Button href={selectedLocation.orderUrl} variant="secondary" size="lg" className="text-base sm:text-lg">
                     Go to delivery / takeout
                   </Button>
