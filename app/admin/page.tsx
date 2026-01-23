@@ -13,6 +13,11 @@ const quickStats = [
 
 const actionItems = [
   {
+    title: "Review project tracker",
+    description: "Update tasks and progress for this project.",
+    href: "/admin/tracker",
+  },
+  {
     title: "Update Brunch menu",
     description: "Add seasonal brunch features and libations.",
     href: "/admin/menus",

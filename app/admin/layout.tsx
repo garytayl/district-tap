@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/Badge"
 
 const navItems = [
   { href: "/admin", label: "Overview" },
+  { href: "/admin/tracker", label: "Tracker" },
   { href: "/admin/menus", label: "Menus" },
   { href: "/admin/events", label: "Events" },
   { href: "/admin/private-events", label: "Private Events" },
