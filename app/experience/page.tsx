@@ -75,10 +75,22 @@ export default function MobileExperience() {
           </Link>
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] text-white/40">
-          <span className={`h-2 w-2 rounded-full ${step === "welcome" ? "bg-amber-400" : "bg-white/20"}`} />
-          <span className={`h-2 w-2 rounded-full ${step === "location" ? "bg-amber-400" : "bg-white/20"}`} />
-          <span className={`h-2 w-2 rounded-full ${step === "experience" ? "bg-amber-400" : "bg-white/20"}`} />
+        <div className="mt-6 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.3em] text-white/40">
+          <span
+            className={`h-2.5 w-2.5 rounded-full ${
+              step === "welcome" ? "bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.7)]" : "bg-white/20"
+            }`}
+          />
+          <span
+            className={`h-2.5 w-2.5 rounded-full ${
+              step === "location" ? "bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.7)]" : "bg-white/20"
+            }`}
+          />
+          <span
+            className={`h-2.5 w-2.5 rounded-full ${
+              step === "experience" ? "bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.7)]" : "bg-white/20"
+            }`}
+          />
         </div>
 
         {step === "welcome" ? (
@@ -90,7 +102,12 @@ export default function MobileExperience() {
                 Tap through a fast, fun flow built for mobile. Big buttons. Quick choices. Zero clutter.
               </p>
             </div>
-            <Button variant="secondary" size="lg" className="text-base sm:text-lg" onClick={() => setStep("location")}>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="text-base sm:text-lg active:scale-[0.98] transition"
+              onClick={() => setStep("location")}
+            >
               Start the experience
             </Button>
           </section>
@@ -112,10 +129,8 @@ export default function MobileExperience() {
                     setSelectedLocationId(location.id)
                     setStep("experience")
                   }}
-                  className={`flex h-full flex-col gap-5 rounded-[36px] border px-7 py-8 text-left transition hover:border-white/50 ${
-                    index === 0
-                      ? "border-amber-400/40 bg-amber-400/10"
-                      : "border-white/10 bg-white/5"
+                  className={`glass-tile flex h-full flex-col gap-5 px-7 py-8 text-left active:scale-[0.98] ${
+                    index === 0 ? "border-amber-400/40 bg-amber-400/10 glass-glow" : ""
                   }`}
                 >
                   <div className="space-y-2">
@@ -127,7 +142,12 @@ export default function MobileExperience() {
                 </button>
               ))}
             </div>
-            <Button variant="outline" size="sm" className="border-white/30 text-white" onClick={() => setStep("welcome")}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-white/30 text-white active:scale-[0.98] transition"
+              onClick={() => setStep("welcome")}
+            >
               Back
             </Button>
           </section>
@@ -143,19 +163,24 @@ export default function MobileExperience() {
             <div className="grid gap-5">
               <button
                 type="button"
-                className="rounded-[36px] border border-white/10 bg-white/5 p-7 text-left transition hover:border-white/50"
+                className="glass-tile p-7 text-left active:scale-[0.98]"
               >
                 <p className="text-xl font-semibold sm:text-2xl">Browse the menu</p>
                 <p className="text-base text-white/60 sm:text-lg">See lunch, dinner, and drinks.</p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <Button href={menuConfig?.href ?? "/menu"} variant="secondary" size="lg" className="text-base sm:text-lg">
+                  <Button
+                    href={menuConfig?.href ?? "/menu"}
+                    variant="secondary"
+                    size="lg"
+                    className="text-base sm:text-lg active:scale-[0.98] transition"
+                  >
                     {menuConfig?.label ?? "View Menu"}
                   </Button>
                   <Button
                     href={menuConfig?.drinksHref ?? "/menu/drinks"}
                     variant="outline"
                     size="lg"
-                    className="border-white/30 text-white text-base sm:text-lg"
+                    className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
                   >
                     Drinks Menu
                   </Button>
@@ -163,19 +188,24 @@ export default function MobileExperience() {
               </button>
               <button
                 type="button"
-                className="rounded-[36px] border border-white/10 bg-white/5 p-7 text-left transition hover:border-white/50"
+                className="glass-tile p-7 text-left active:scale-[0.98]"
               >
                 <p className="text-xl font-semibold sm:text-2xl">Dine in</p>
                 <p className="text-base text-white/60 sm:text-lg">Call or get directions.</p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <Button asChild variant="outline" size="lg" className="border-white/30 text-white text-base sm:text-lg">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
+                  >
                     <a href={normalizePhone(selectedLocation.phone)}>Call {selectedLocation.phone}</a>
                   </Button>
                   <Button
                     href={selectedLocation.mapUrl}
                     variant="outline"
                     size="lg"
-                    className="border-white/30 text-white text-base sm:text-lg"
+                    className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
                   >
                     Open map
                   </Button>
@@ -183,12 +213,17 @@ export default function MobileExperience() {
               </button>
               <button
                 type="button"
-                className="rounded-[36px] border border-white/10 bg-white/5 p-7 text-left transition hover:border-white/50"
+                className="glass-tile p-7 text-left active:scale-[0.98]"
               >
                 <p className="text-xl font-semibold sm:text-2xl">Delivery + takeout</p>
                 <p className="text-base text-white/60 sm:text-lg">Head to delivery to complete your order.</p>
                 <div className="mt-6">
-                  <Button href={selectedLocation.orderUrl} variant="secondary" size="lg" className="text-base sm:text-lg">
+                  <Button
+                    href={selectedLocation.orderUrl}
+                    variant="secondary"
+                    size="lg"
+                    className="text-base sm:text-lg active:scale-[0.98] transition"
+                  >
                     Go to delivery / takeout
                   </Button>
                 </div>
@@ -198,13 +233,18 @@ export default function MobileExperience() {
               <Button
                 variant="outline"
                 size="sm"
-                className="border-white/30 text-white"
+                className="border-white/30 text-white active:scale-[0.98] transition"
                 onClick={() => setStep("location")}
               >
                 Change location
               </Button>
               {mapEmbedUrl ? (
-                <Button href={selectedLocation.mapUrl} variant="outline" size="sm" className="border-white/30 text-white">
+                <Button
+                  href={selectedLocation.mapUrl}
+                  variant="outline"
+                  size="sm"
+                  className="border-white/30 text-white active:scale-[0.98] transition"
+                >
                   Open map
                 </Button>
               ) : null}
