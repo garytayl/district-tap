@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/site/PageHeader"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
-import { loyaltyBenefits } from "@/lib/site-data"
+import { loyaltyBenefits, loyaltySignupUrl } from "@/lib/site-data"
 
 export default function LoyaltyPage() {
   return (
@@ -11,10 +11,7 @@ export default function LoyaltyPage() {
         title="Damn Good Rewards"
         description="Earn points every time you visit and turn them into your next meal or round."
       >
-        <Button
-          href="https://www.toasttab.com/the-district-tap-keystone-3720-east-82nd-street/rewardsSignup"
-          variant="secondary"
-        >
+        <Button href={loyaltySignupUrl} variant="secondary">
           Join the Loyalty Program
         </Button>
       </PageHeader>

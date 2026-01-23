@@ -464,6 +464,9 @@ export const loyaltyBenefits = [
   "Double points during happy hour",
 ]
 
+export const loyaltySignupUrl =
+  "https://www.toasttab.com/the-district-tap-keystone-3720-east-82nd-street/rewardsSignup"
+
 export const staffContacts = [
   { name: "Michael Cranfill", role: "Proprietor", email: "michael@thedistricttap.com" },
   { name: "Nikki Snodgrass", role: "Events + Catering Manager", email: "events@thedistricttap.com" },
