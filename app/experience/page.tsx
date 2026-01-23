@@ -5,7 +5,6 @@ import Link from "next/link"
 
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
-import { Card } from "@/components/ui/Card"
 import { locations } from "@/lib/site-data"
 
 const locationOptions = Object.values(locations)
@@ -59,8 +58,8 @@ export default function MobileExperience() {
     : null
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-white">
-      <div className="mx-auto flex w-full max-w-2xl flex-col px-6 pb-16 pt-10 sm:pt-16">
+    <main className="min-h-[100svh] bg-neutral-950 text-white">
+      <div className="mx-auto flex w-full flex-col px-6 pb-20 pt-8 sm:px-10 sm:pt-12">
         <div className="flex items-center justify-between gap-3">
           <Badge variant="light">District Tap</Badge>
           <Link href="/" className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white">
@@ -69,27 +68,27 @@ export default function MobileExperience() {
         </div>
 
         {step === "welcome" ? (
-          <section className="flex min-h-[70vh] flex-col justify-center gap-6">
+          <section className="flex min-h-[80svh] flex-col justify-center gap-8">
             <div className="space-y-4">
-              <h1 className="text-4xl font-semibold sm:text-5xl">Welcome!</h1>
-              <p className="text-sm text-white/70">
+              <h1 className="text-5xl font-semibold sm:text-6xl">Welcome!</h1>
+              <p className="text-base text-white/70 sm:text-lg">
                 We made a mobile-first experience just for you. Ready to start your visit?
               </p>
             </div>
-            <Button variant="secondary" size="lg" onClick={() => setStep("location")}>
+            <Button variant="secondary" size="lg" className="text-base sm:text-lg" onClick={() => setStep("location")}>
               Start
             </Button>
           </section>
         ) : null}
 
         {step === "location" ? (
-          <section className="flex min-h-[70vh] flex-col gap-6 pt-8">
+          <section className="flex min-h-[80svh] flex-col gap-8 pt-8">
             <div className="space-y-2">
               <p className="text-xs uppercase tracking-[0.3em] text-white/50">Step 1</p>
-              <h2 className="text-3xl font-semibold">Where will you be dining today?</h2>
-              <p className="text-sm text-white/70">Choose a location to continue.</p>
+              <h2 className="text-4xl font-semibold sm:text-5xl">Where will you be dining today?</h2>
+              <p className="text-base text-white/70 sm:text-lg">Choose a location to continue.</p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2">
               {locationOptions.map((location) => (
                 <button
                   key={location.id}
@@ -98,12 +97,12 @@ export default function MobileExperience() {
                     setSelectedLocationId(location.id)
                     setStep("experience")
                   }}
-                  className="flex h-full flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-left transition hover:border-white/40"
+                  className="flex h-full flex-col gap-4 rounded-[32px] border border-white/10 bg-white/5 px-7 py-7 text-left transition hover:border-white/40"
                 >
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-white/60">{location.name}</p>
-                    <p className="text-lg font-semibold">{location.addressLines[0]}</p>
-                    <p className="text-sm text-white/60">{location.addressLines[1]}</p>
+                    <p className="text-2xl font-semibold sm:text-3xl">{location.addressLines[0]}</p>
+                    <p className="text-base text-white/60 sm:text-lg">{location.addressLines[1]}</p>
                   </div>
                   <span className="text-xs uppercase tracking-[0.3em] text-white/50">{location.phone}</span>
                 </button>
@@ -116,51 +115,61 @@ export default function MobileExperience() {
         ) : null}
 
         {step === "experience" && selectedLocation ? (
-          <section className="flex min-h-[70vh] flex-col gap-6 pt-8">
+          <section className="flex min-h-[80svh] flex-col gap-8 pt-8">
             <div className="space-y-2">
               <p className="text-xs uppercase tracking-[0.3em] text-white/50">Step 2</p>
-              <h2 className="text-3xl font-semibold">How do you want to order?</h2>
-              <p className="text-sm text-white/70">{selectedLocation.name} is selected.</p>
+              <h2 className="text-4xl font-semibold sm:text-5xl">How do you want to order?</h2>
+              <p className="text-base text-white/70 sm:text-lg">{selectedLocation.name} is selected.</p>
             </div>
-            <div className="grid gap-4">
+            <div className="grid gap-5">
               <button
                 type="button"
-                className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left transition hover:border-white/40"
+                className="rounded-[32px] border border-white/10 bg-white/5 p-6 text-left transition hover:border-white/40 sm:p-7"
               >
-                <p className="text-sm font-semibold">Browse the menu</p>
-                <p className="text-sm text-white/60">See lunch, dinner, and drinks.</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Button href={menuConfig?.href ?? "/menu"} variant="secondary" size="sm">
+                <p className="text-lg font-semibold sm:text-2xl">Browse the menu</p>
+                <p className="text-base text-white/60 sm:text-lg">See lunch, dinner, and drinks.</p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Button href={menuConfig?.href ?? "/menu"} variant="secondary" size="lg" className="text-base sm:text-lg">
                     {menuConfig?.label ?? "View Menu"}
                   </Button>
-                  <Button href={menuConfig?.drinksHref ?? "/menu/drinks"} variant="outline" size="sm" className="border-white/30 text-white">
+                  <Button
+                    href={menuConfig?.drinksHref ?? "/menu/drinks"}
+                    variant="outline"
+                    size="lg"
+                    className="border-white/30 text-white text-base sm:text-lg"
+                  >
                     Drinks Menu
                   </Button>
                 </div>
               </button>
               <button
                 type="button"
-                className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left transition hover:border-white/40"
+                className="rounded-[32px] border border-white/10 bg-white/5 p-6 text-left transition hover:border-white/40 sm:p-7"
               >
-                <p className="text-sm font-semibold">Dine in</p>
-                <p className="text-sm text-white/60">Call or get directions.</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Button asChild variant="outline" size="sm" className="border-white/30 text-white">
+                <p className="text-lg font-semibold sm:text-2xl">Dine in</p>
+                <p className="text-base text-white/60 sm:text-lg">Call or get directions.</p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Button asChild variant="outline" size="lg" className="border-white/30 text-white text-base sm:text-lg">
                     <a href={normalizePhone(selectedLocation.phone)}>Call {selectedLocation.phone}</a>
                   </Button>
-                  <Button href={selectedLocation.mapUrl} variant="outline" size="sm" className="border-white/30 text-white">
+                  <Button
+                    href={selectedLocation.mapUrl}
+                    variant="outline"
+                    size="lg"
+                    className="border-white/30 text-white text-base sm:text-lg"
+                  >
                     Directions
                   </Button>
                 </div>
               </button>
               <button
                 type="button"
-                className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left transition hover:border-white/40"
+                className="rounded-[32px] border border-white/10 bg-white/5 p-6 text-left transition hover:border-white/40 sm:p-7"
               >
-                <p className="text-sm font-semibold">Delivery + takeout</p>
-                <p className="text-sm text-white/60">Head to delivery to complete your order.</p>
-                <div className="mt-4">
-                  <Button href={selectedLocation.orderUrl} variant="secondary" size="sm">
+                <p className="text-lg font-semibold sm:text-2xl">Delivery + takeout</p>
+                <p className="text-base text-white/60 sm:text-lg">Head to delivery to complete your order.</p>
+                <div className="mt-5">
+                  <Button href={selectedLocation.orderUrl} variant="secondary" size="lg" className="text-base sm:text-lg">
                     Go to delivery / takeout
                   </Button>
                 </div>
