@@ -126,3 +126,8 @@
     @apply bg-amber-500 text-black;
   }
 }
+
+.experience-mode header,
+.experience-mode footer {
+  display: none;
+}

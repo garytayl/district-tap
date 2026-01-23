@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 
 import { Badge } from "@/components/ui/Badge"
@@ -45,6 +45,13 @@ export default function MobileExperience() {
     [selectedLocationId],
   )
 
+  useEffect(() => {
+    document.body.classList.add("experience-mode")
+    return () => {
+      document.body.classList.remove("experience-mode")
+    }
+  }, [])
+
   const menuConfig = selectedLocation ? menuByLocation[selectedLocation.id] : null
   const mapEmbedUrl = selectedLocation
     ? getMapEmbedUrl(selectedLocation.mapUrl, selectedLocation.addressLines.join(", "))
@@ -54,23 +61,23 @@ export default function MobileExperience() {
     <main className="min-h-screen bg-neutral-950 text-white">
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-8 px-6 pb-20 pt-10 sm:pt-16">
         <div className="flex items-center justify-between gap-3">
-          <Badge variant="light">Mobile First</Badge>
+          <Badge variant="light">Welcome</Badge>
           <Link href="/" className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white">
-            Back to site
+            Exit
           </Link>
         </div>
 
         <div className="space-y-4">
-          <h1 className="text-3xl font-semibold sm:text-4xl">Start your District Tap visit.</h1>
+          <h1 className="text-3xl font-semibold sm:text-4xl">Where will you be dining today?</h1>
           <p className="text-sm text-white/70">
-            Pick a location, then choose how you want to enjoy the menu: dine in, browse menus, or head to delivery.
+            Pick a location to unlock menus, dine-in details, and quick delivery options. Tap a spot to get started.
           </p>
         </div>
 
         <section className="space-y-4">
           <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-white/50">
             <span>Step 1</span>
-            <span>Choose a location</span>
+            <span>Pick your spot</span>
           </div>
           <Card className="border-white/10 bg-white/5 text-white">
             <div className="space-y-3">
@@ -115,7 +122,9 @@ export default function MobileExperience() {
                   onClick={() => setSelectedLocationId(location.id)}
                   aria-pressed={isActive}
                   className={`flex h-full flex-col gap-3 rounded-3xl border px-6 py-5 text-left transition ${
-                    isActive ? "border-amber-400 bg-amber-400/10" : "border-white/10 bg-white/5 hover:border-white/40"
+                    isActive
+                      ? "border-amber-400 bg-amber-400/15 shadow-[0_0_35px_rgba(251,191,36,0.2)]"
+                      : "border-white/10 bg-white/5 hover:border-white/40"
                   }`}
                 >
                   <div>
@@ -133,7 +142,7 @@ export default function MobileExperience() {
         <section className="space-y-4">
           <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-white/50">
             <span>Step 2</span>
-            <span>Pick the experience</span>
+            <span>Choose your vibe</span>
           </div>
           <Card className="border-white/10 bg-white/5 text-white">
             {selectedLocation ? (
@@ -189,9 +198,7 @@ export default function MobileExperience() {
                 </button>
               </div>
             ) : (
-              <div className="text-sm text-white/60">
-                Choose a location above to unlock menu, dine-in, and delivery options.
-              </div>
+              <div className="text-sm text-white/60">Choose a location above and the next steps will light up.</div>
             )}
           </Card>
         </section>
