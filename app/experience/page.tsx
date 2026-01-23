@@ -118,16 +118,19 @@ export default function MobileExperience() {
             className={`h-2.5 w-2.5 rounded-full ${
               step === "welcome" ? "bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.7)]" : "bg-white/20"
             }`}
+            aria-label="Welcome"
           />
           <span
             className={`h-2.5 w-2.5 rounded-full ${
               step === "location" ? "bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.7)]" : "bg-white/20"
             }`}
+            aria-label="Location"
           />
           <span
             className={`h-2.5 w-2.5 rounded-full ${
               step === "experience" ? "bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.7)]" : "bg-white/20"
             }`}
+            aria-label="Options"
           />
         </div>
 
@@ -139,7 +142,7 @@ export default function MobileExperience() {
             } animate-in fade-in-0 slide-in-from-bottom-8`}
           >
             <div className="space-y-5">
-              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Mobile experience</p>
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Welcome</p>
               <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">Welcome to your District Tap visit.</h1>
               <p className="text-lg text-white/70 sm:text-xl">
                 Tap through a fast, fun flow built for mobile. Big buttons. Quick choices. Zero clutter.
@@ -164,7 +167,7 @@ export default function MobileExperience() {
             } animate-in fade-in-0 slide-in-from-bottom-8`}
           >
             <div className="space-y-3">
-              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Step 1</p>
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Location</p>
               <h2 className="text-4xl font-semibold sm:text-5xl">Where will you be dining today?</h2>
               <p className="text-base text-white/70 sm:text-lg">Choose a location to continue.</p>
             </div>
@@ -211,7 +214,7 @@ export default function MobileExperience() {
             } animate-in fade-in-0 slide-in-from-bottom-8`}
           >
             <div className="space-y-3">
-              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Step 2</p>
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Options</p>
               <h2 className="text-4xl font-semibold sm:text-5xl">Choose your path.</h2>
               <p className="text-base text-white/70 sm:text-lg">{selectedLocation.name} is selected.</p>
             </div>
