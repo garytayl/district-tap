@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { MobileExperiencePrompt } from "@/components/site/MobileExperiencePrompt"
 import { Button } from "@/components/ui/Button"
 import { locations, navLinks, quickActions } from "@/lib/site-data"
 
@@ -25,6 +26,7 @@ export function Footer() {
               Book an Event
             </Button>
           </div>
+          <MobileExperiencePrompt />
         </div>
         <div className="space-y-3">
           <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-black/60">Locations</h3>
