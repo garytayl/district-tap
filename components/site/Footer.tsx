@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 import { Button } from "@/components/ui/Button"
-import { locations, navLinks } from "@/lib/site-data"
+import { locations, navLinks, quickActions } from "@/lib/site-data"
 
 export function Footer() {
   return (
@@ -17,7 +17,7 @@ export function Footer() {
             <Button href="https://order.online/" variant="secondary" size="sm">
               Order Catering
             </Button>
-            <Button href="https://www.perfectvenue.com/" variant="outline" size="sm">
+            <Button href={quickActions[1].href} variant="outline" size="sm">
               Book an Event
             </Button>
           </div>

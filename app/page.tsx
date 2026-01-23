@@ -108,7 +108,7 @@ export default function Home() {
             <Button href="/private-events" variant="primary">
               Explore Event Spaces
             </Button>
-            <Button href="https://www.perfectvenue.com/" variant="outline">
+            <Button href={quickActions[1].href} variant="outline">
               Submit Inquiry
             </Button>
           </div>

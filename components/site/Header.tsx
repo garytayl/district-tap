@@ -52,7 +52,7 @@ export function Header() {
           ))}
           <div className="ml-auto hidden items-center gap-2 lg:flex">
             <Badge>Book an Event</Badge>
-            <Button href="https://www.perfectvenue.com/" variant="secondary" size="sm">
+            <Button href={quickActions[1].href} variant="secondary" size="sm">
               Start Request
             </Button>
           </div>

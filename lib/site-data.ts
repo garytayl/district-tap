@@ -53,7 +53,7 @@ export const quickActions = [
   },
   {
     label: "Book an Event",
-    href: "https://www.perfectvenue.com/",
+    href: "https://app.perfectvenue.com/organizations/the-district-tap/hello",
   },
   {
     label: "Order Catering",

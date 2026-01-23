@@ -3,7 +3,7 @@ import Link from "next/link"
 import { PageHeader } from "@/components/site/PageHeader"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
-import { downtownSpaces, northsideSpaces } from "@/lib/site-data"
+import { downtownSpaces, northsideSpaces, quickActions } from "@/lib/site-data"
 
 export default function PrivateEventsPage() {
   return (
@@ -20,7 +20,7 @@ export default function PrivateEventsPage() {
           <Button href="/private-events/downtown" variant="outline">
             Downtown Rooms
           </Button>
-          <Button href="https://www.perfectvenue.com/" variant="primary">
+          <Button href={quickActions[1].href} variant="primary">
             Book a Private Room
           </Button>
         </div>
