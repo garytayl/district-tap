@@ -39,6 +39,7 @@ function normalizePhone(phone: string) {
 
 export default function MobileExperience() {
   const [step, setStep] = useState<"welcome" | "location" | "experience">("welcome")
+  const [subStep, setSubStep] = useState<"options" | "menu" | "dine" | "delivery">("options")
   const [selectedLocationId, setSelectedLocationId] = useState<keyof typeof locations | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -79,8 +80,23 @@ export default function MobileExperience() {
     }, 220)
   }
 
+  const advanceSubStep = (
+    nextSubStep: "options" | "menu" | "dine" | "delivery",
+    beforeStep?: () => void,
+  ) => {
+    if (transitionTimeoutRef.current) {
+      clearTimeout(transitionTimeoutRef.current)
+    }
+    setIsTransitioning(true)
+    transitionTimeoutRef.current = setTimeout(() => {
+      beforeStep?.()
+      setSubStep(nextSubStep)
+      setIsTransitioning(false)
+    }, 220)
+  }
+
   return (
-    <main className="relative min-h-[100svh] overflow-x-hidden bg-neutral-950 text-white">
+    <main className="relative min-h-[100svh] overflow-hidden bg-neutral-950 text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-20 top-10 h-56 w-56 rounded-full bg-amber-500/20 blur-3xl" />
         <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-orange-500/20 blur-[100px]" />
@@ -158,7 +174,10 @@ export default function MobileExperience() {
                   key={location.id}
                   type="button"
                   onClick={() => {
-                    advanceStep("experience", () => setSelectedLocationId(location.id))
+                    advanceStep("experience", () => {
+                      setSelectedLocationId(location.id)
+                      setSubStep("options")
+                    })
                   }}
                   className={`glass-tile flex h-full flex-col gap-5 px-7 py-8 text-left active:scale-[0.98] ${
                     index === 0 ? "border-amber-400/40 bg-amber-400/10 glass-glow" : ""
@@ -193,87 +212,144 @@ export default function MobileExperience() {
           >
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Step 2</p>
-              <h2 className="text-4xl font-semibold sm:text-5xl">Choose your vibe.</h2>
+              <h2 className="text-4xl font-semibold sm:text-5xl">Choose your path.</h2>
               <p className="text-base text-white/70 sm:text-lg">{selectedLocation.name} is selected.</p>
             </div>
-            <div className="grid gap-5">
-              <button
-                type="button"
-                className="glass-tile p-7 text-left active:scale-[0.98]"
-              >
-                <p className="text-xl font-semibold sm:text-2xl">Browse the menu</p>
-                <p className="text-base text-white/60 sm:text-lg">See lunch, dinner, and drinks.</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Button
-                    href={menuConfig?.href ?? "/menu"}
-                    variant="secondary"
-                    size="lg"
-                    className="text-base sm:text-lg active:scale-[0.98] transition"
-                  >
-                    {menuConfig?.label ?? "View Menu"}
-                  </Button>
-                  <Button
-                    href={menuConfig?.drinksHref ?? "/menu/drinks"}
-                    variant="outline"
-                    size="lg"
-                    className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
-                  >
-                    Drinks Menu
-                  </Button>
-                </div>
-              </button>
-              <button
-                type="button"
-                className="glass-tile p-7 text-left active:scale-[0.98]"
-              >
-                <p className="text-xl font-semibold sm:text-2xl">Dine in</p>
-                <p className="text-base text-white/60 sm:text-lg">Call or get directions.</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
-                  >
-                    <a href={normalizePhone(selectedLocation.phone)}>Call {selectedLocation.phone}</a>
-                  </Button>
-                  <Button
-                    href={selectedLocation.mapUrl}
-                    variant="outline"
-                    size="lg"
-                    className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
-                  >
-                    Open map
-                  </Button>
-                </div>
-              </button>
-              <button
-                type="button"
-                className="glass-tile p-7 text-left active:scale-[0.98]"
-              >
-                <p className="text-xl font-semibold sm:text-2xl">Delivery + takeout</p>
-                <p className="text-base text-white/60 sm:text-lg">Head to delivery to complete your order.</p>
-                <div className="mt-6">
-                  <Button
-                    href={selectedLocation.orderUrl}
-                    variant="secondary"
-                    size="lg"
-                    className="text-base sm:text-lg active:scale-[0.98] transition"
-                  >
-                    Go to delivery / takeout
-                  </Button>
-                </div>
-              </button>
-            </div>
+
+            {subStep === "options" ? (
+              <div className="grid gap-5">
+                <button
+                  type="button"
+                  onClick={() => advanceSubStep("menu")}
+                  className="glass-tile p-7 text-left active:scale-[0.98]"
+                >
+                  <p className="text-2xl font-semibold sm:text-3xl">Menus</p>
+                  <p className="text-base text-white/60 sm:text-lg">Lunch, dinner, and drinks.</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => advanceSubStep("dine")}
+                  className="glass-tile p-7 text-left active:scale-[0.98]"
+                >
+                  <p className="text-2xl font-semibold sm:text-3xl">Dine in</p>
+                  <p className="text-base text-white/60 sm:text-lg">Call or get directions.</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => advanceSubStep("delivery")}
+                  className="glass-tile p-7 text-left active:scale-[0.98]"
+                >
+                  <p className="text-2xl font-semibold sm:text-3xl">Delivery + takeout</p>
+                  <p className="text-base text-white/60 sm:text-lg">Order now.</p>
+                </button>
+              </div>
+            ) : null}
+
+            {subStep === "menu" ? (
+              <div className="grid gap-5">
+                <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
+                  <p className="text-2xl font-semibold sm:text-3xl">Food menu</p>
+                  <p className="text-base text-white/60 sm:text-lg">Lunch + dinner.</p>
+                  <div className="mt-6">
+                    <Button
+                      href={menuConfig?.href ?? "/menu"}
+                      variant="secondary"
+                      size="lg"
+                      className="text-base sm:text-lg active:scale-[0.98] transition"
+                    >
+                      {menuConfig?.label ?? "View Menu"}
+                    </Button>
+                  </div>
+                </button>
+                <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
+                  <p className="text-2xl font-semibold sm:text-3xl">Drinks</p>
+                  <p className="text-base text-white/60 sm:text-lg">Cocktails, beer, and wine.</p>
+                  <div className="mt-6">
+                    <Button
+                      href={menuConfig?.drinksHref ?? "/menu/drinks"}
+                      variant="outline"
+                      size="lg"
+                      className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
+                    >
+                      Drinks Menu
+                    </Button>
+                  </div>
+                </button>
+              </div>
+            ) : null}
+
+            {subStep === "dine" ? (
+              <div className="grid gap-5">
+                <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
+                  <p className="text-2xl font-semibold sm:text-3xl">Call ahead</p>
+                  <p className="text-base text-white/60 sm:text-lg">Speak with the host.</p>
+                  <div className="mt-6">
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="lg"
+                      className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
+                    >
+                      <a href={normalizePhone(selectedLocation.phone)}>Call {selectedLocation.phone}</a>
+                    </Button>
+                  </div>
+                </button>
+                <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
+                  <p className="text-2xl font-semibold sm:text-3xl">Directions</p>
+                  <p className="text-base text-white/60 sm:text-lg">Open maps.</p>
+                  <div className="mt-6">
+                    <Button
+                      href={selectedLocation.mapUrl}
+                      variant="outline"
+                      size="lg"
+                      className="border-white/30 text-white text-base sm:text-lg active:scale-[0.98] transition"
+                    >
+                      Open map
+                    </Button>
+                  </div>
+                </button>
+              </div>
+            ) : null}
+
+            {subStep === "delivery" ? (
+              <div className="grid gap-5">
+                <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
+                  <p className="text-2xl font-semibold sm:text-3xl">Order delivery</p>
+                  <p className="text-base text-white/60 sm:text-lg">Complete your order online.</p>
+                  <div className="mt-6">
+                    <Button
+                      href={selectedLocation.orderUrl}
+                      variant="secondary"
+                      size="lg"
+                      className="text-base sm:text-lg active:scale-[0.98] transition"
+                    >
+                      Go to delivery / takeout
+                    </Button>
+                  </div>
+                </button>
+              </div>
+            ) : null}
+
             <div className="flex flex-wrap gap-3">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-white/30 text-white active:scale-[0.98] transition"
-                onClick={() => advanceStep("location")}
-              >
-                Change location
-              </Button>
+              {subStep === "options" ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-white/30 text-white active:scale-[0.98] transition"
+                  onClick={() => advanceStep("location")}
+                >
+                  Change location
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-white/30 text-white active:scale-[0.98] transition"
+                  onClick={() => advanceSubStep("options")}
+                >
+                  Back to options
+                </Button>
+              )}
               {mapEmbedUrl ? (
                 <Button
                   href={selectedLocation.mapUrl}
