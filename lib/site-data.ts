@@ -112,7 +112,7 @@ export const locations: Record<Location["id"], Location> = {
       "Sun: 10 AM - 9 PM",
       "Brunch: Sun 11 AM - 3 PM",
     ],
-    mapUrl: "https://maps.google.com/?q=3720+E+82nd+St+Indianapolis+IN",
+    mapUrl: "https://maps.google.com/?q=The+District+Tap+Northside+Indianapolis",
     orderUrl: "https://order.online/store/the-district-tap-northside-52264",
   },
   downtown: {
@@ -128,7 +128,7 @@ export const locations: Record<Location["id"], Location> = {
       "Sun: 10 AM - 9 PM",
       "Happy Hour: Daily 3 PM - 6 PM",
     ],
-    mapUrl: "https://maps.google.com/?q=141+S+Meridian+St+Indianapolis+IN",
+    mapUrl: "https://maps.google.com/?q=The+District+Tap+Downtown+Indianapolis",
     orderUrl: "https://order.online/store/the-district-tap-northside-52264",
   },
 }
