@@ -143,9 +143,9 @@ export default function MobileExperience() {
           >
             <div className="space-y-5">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Welcome</p>
-              <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">Welcome to your District Tap visit.</h1>
+              <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">Hungry? You are in the right place.</h1>
               <p className="text-lg text-white/70 sm:text-xl">
-                Tap through a fast, fun flow built for mobile. Big buttons. Quick choices. Zero clutter.
+                Meet The District Tap. Two Indianapolis locations, one massive menu, and fast ways to order.
               </p>
             </div>
             <Button
@@ -154,7 +154,7 @@ export default function MobileExperience() {
               className="text-base sm:text-lg active:scale-[0.98] transition"
               onClick={() => advanceStep("location")}
             >
-              Start the experience
+              Find your location
             </Button>
           </section>
         ) : null}
@@ -168,8 +168,8 @@ export default function MobileExperience() {
           >
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Location</p>
-              <h2 className="text-4xl font-semibold sm:text-5xl">Where will you be dining today?</h2>
-              <p className="text-base text-white/70 sm:text-lg">Choose a location to continue.</p>
+              <h2 className="text-4xl font-semibold sm:text-5xl">Pick your District Tap.</h2>
+              <p className="text-base text-white/70 sm:text-lg">Choose a location to see menus, dine in, or order online.</p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               {locationOptions.map((location, index) => (
@@ -215,7 +215,7 @@ export default function MobileExperience() {
           >
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Options</p>
-              <h2 className="text-4xl font-semibold sm:text-5xl">Choose your path.</h2>
+              <h2 className="text-4xl font-semibold sm:text-5xl">What are you craving?</h2>
               <p className="text-base text-white/70 sm:text-lg">{selectedLocation.name} is selected.</p>
             </div>
 
@@ -235,7 +235,7 @@ export default function MobileExperience() {
                   className="glass-tile p-7 text-left active:scale-[0.98]"
                 >
                   <p className="text-2xl font-semibold sm:text-3xl">Dine in</p>
-                  <p className="text-base text-white/60 sm:text-lg">Call or get directions.</p>
+                  <p className="text-base text-white/60 sm:text-lg">Call ahead or get directions.</p>
                 </button>
                 <button
                   type="button"
@@ -243,7 +243,7 @@ export default function MobileExperience() {
                   className="glass-tile p-7 text-left active:scale-[0.98]"
                 >
                   <p className="text-2xl font-semibold sm:text-3xl">Delivery + takeout</p>
-                  <p className="text-base text-white/60 sm:text-lg">Order now.</p>
+                  <p className="text-base text-white/60 sm:text-lg">Order online now.</p>
                 </button>
               </div>
             ) : null}
@@ -252,7 +252,7 @@ export default function MobileExperience() {
               <div className="grid gap-5">
                 <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
                   <p className="text-2xl font-semibold sm:text-3xl">Food menu</p>
-                  <p className="text-base text-white/60 sm:text-lg">Lunch + dinner.</p>
+                  <p className="text-base text-white/60 sm:text-lg">Lunch + dinner favorites.</p>
                   <div className="mt-6">
                     <Button
                       href={menuConfig?.href ?? "/menu"}
@@ -285,7 +285,7 @@ export default function MobileExperience() {
               <div className="grid gap-5">
                 <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
                   <p className="text-2xl font-semibold sm:text-3xl">Call ahead</p>
-                  <p className="text-base text-white/60 sm:text-lg">Speak with the host.</p>
+                  <p className="text-base text-white/60 sm:text-lg">Save your spot or ask a question.</p>
                   <div className="mt-6">
                     <Button
                       asChild
@@ -299,7 +299,7 @@ export default function MobileExperience() {
                 </button>
                 <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
                   <p className="text-2xl font-semibold sm:text-3xl">Directions</p>
-                  <p className="text-base text-white/60 sm:text-lg">Open maps.</p>
+                  <p className="text-base text-white/60 sm:text-lg">Navigate to the restaurant.</p>
                   <div className="mt-6">
                     <Button
                       href={selectedLocation.mapUrl}
