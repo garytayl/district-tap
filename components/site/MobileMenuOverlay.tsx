@@ -68,7 +68,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </Button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 pb-12 pt-8 [scrollbar-gutter:stable]">
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-12 pt-8 [scrollbar-gutter:stable]">
           <div className="space-y-6">
             <div className="glass-panel px-6 py-7">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Quick order</p>
