@@ -10,10 +10,11 @@ import { events, locations, menuLinks, quickActions } from "@/lib/site-data"
 
 export default function Home() {
   return (
-    <main className="bg-white">
+    <main className="bg-neutral-950 text-white">
       <section className="relative overflow-hidden bg-black text-white">
         <div className="absolute inset-0">
           <AmbientBackground />
+          <div className="absolute inset-0 site-noise" />
         </div>
         <div className="relative mx-auto flex max-w-6xl flex-col gap-10 px-6 py-24">
           <div className="max-w-2xl space-y-6">
@@ -44,7 +45,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16">
+      <section className="relative mx-auto flex max-w-6xl flex-col gap-10 rounded-[36px] border border-white/10 bg-white px-6 py-16 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
         <PageHeader
           eyebrow="Menus"
           title="Every craving has a home here."
@@ -65,7 +66,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-neutral-950 py-16 text-white">
+      <section className="relative bg-neutral-950 py-16 text-white">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-5">
             <Badge className="bg-white/10 text-white">Live Music & Events</Badge>
@@ -80,7 +81,7 @@ export default function Home() {
           </div>
           <div className="space-y-4">
             {events.slice(0, 2).map((event) => (
-              <Card key={event.slug} className="bg-white/5 text-white">
+              <Card key={event.slug} className="glass-tile text-white">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-white/60">
                     <span>{event.dateLabel}</span>
@@ -98,7 +99,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16">
+      <section className="mx-auto flex max-w-6xl flex-col gap-10 rounded-[36px] border border-white/10 bg-white px-6 py-16 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
         <PageHeader
           eyebrow="Private Events"
           title="Host your next event with us."
@@ -140,7 +141,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-6 px-6 pb-20 md:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl gap-6 rounded-[36px] border border-white/10 bg-white px-6 pb-20 pt-16 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)] md:grid-cols-2">
         <Card>
           <h3 className="text-xl font-semibold">Gift Cards</h3>
           <p className="text-sm text-black/60">
@@ -171,7 +172,7 @@ export default function Home() {
         </Card>
       </section>
 
-      <section className="border-t border-black/10 bg-white py-10">
+      <section className="mx-auto mt-12 max-w-6xl rounded-[36px] border border-white/10 bg-white py-10 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6">
           <p className="text-sm text-black/60">Stay in the loop for new events, menus, and specials.</p>
           <div className="flex flex-wrap items-center gap-3">

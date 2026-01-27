@@ -148,6 +148,10 @@ body.experience-mode {
   @apply pointer-events-none absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.35),transparent_55%)] opacity-60;
 }
 
+.glass-surface {
+  @apply relative overflow-hidden rounded-[32px] border border-white/12 bg-white/8 backdrop-blur-xl shadow-[0_24px_70px_rgba(0,0,0,0.4)];
+}
+
 .glass-tile {
   @apply rounded-[36px] border border-white/10 bg-white/8 backdrop-blur-md transition-all duration-300 ease-out;
 }
@@ -158,4 +162,19 @@ body.experience-mode {
 
 .glass-glow {
   box-shadow: 0 0 45px rgba(251, 191, 36, 0.22);
+}
+
+.site-noise {
+  background-image: url("/noise.png");
+  mix-blend-mode: overlay;
+  opacity: 0.08;
+}
+
+.site-glow-layer {
+  @apply pointer-events-none absolute inset-0;
+}
+
+.site-glow-layer::before {
+  content: "";
+  @apply absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_55%)];
 }

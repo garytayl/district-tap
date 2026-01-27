@@ -1,12 +1,16 @@
 "use client"
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
+import { MobileMenuOverlay } from "@/components/site/MobileMenuOverlay"
 import { navLinks, quickActions } from "@/lib/site-data"
 
 export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-black/90 text-white backdrop-blur">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-4">
@@ -29,12 +33,21 @@ export function Header() {
           </div>
           <div className="flex items-center gap-2 lg:hidden">
             <Button
-              href="/experience"
+              href={quickActions[0].href}
+              variant="secondary"
+              size="sm"
+              className="text-black"
+            >
+              Order
+            </Button>
+            <Button
+              type="button"
               variant="outline"
               size="sm"
               className="border-white/30 text-white hover:border-white/80 hover:bg-white/10"
+              onClick={() => setMobileMenuOpen(true)}
             >
-              Order + Menus
+              Menu
             </Button>
           </div>
         </div>
@@ -67,6 +80,7 @@ export function Header() {
           </div>
         </nav>
       </div>
+      <MobileMenuOverlay open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
     </header>
   )
 }
