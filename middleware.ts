@@ -11,6 +11,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  const skipExperience = request.nextUrl.searchParams.get("skipExperience")
+  if (skipExperience === "1") {
+    return NextResponse.next()
+  }
+
   const userAgent = request.headers.get("user-agent") ?? ""
   const isMobile = MOBILE_UA_REGEX.test(userAgent)
 

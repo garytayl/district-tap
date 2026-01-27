@@ -108,7 +108,10 @@ export default function MobileExperience() {
       <div className="relative mx-auto flex w-full flex-col px-6 pb-24 pt-6 sm:px-10 sm:pt-10">
         <div className="flex items-center justify-between gap-3">
           <Badge variant="light">District Tap</Badge>
-          <Link href="/" className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white">
+          <Link
+            href="/?skipExperience=1"
+            className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white"
+          >
             Exit
           </Link>
         </div>
