@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 
-import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { locations, navLinks, quickActions } from "@/lib/site-data"
 
@@ -34,8 +34,13 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50">
-      <button type="button" aria-label="Close menu" onClick={onClose} className="absolute inset-0 bg-neutral-950/90" />
+    <div className="fixed inset-0 z-50 h-[100svh]">
+      <button
+        type="button"
+        aria-label="Close menu"
+        onClick={onClose}
+        className="absolute inset-0 h-[100svh] bg-neutral-950/90"
+      />
       <div className="pointer-events-none absolute inset-0">
         <div className="site-glow-layer" />
         <div className="absolute -left-24 top-10 h-56 w-56 rounded-full bg-amber-500/20 blur-3xl" />
@@ -44,9 +49,14 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         <div className="absolute inset-0 site-noise" />
       </div>
 
-      <div className="relative flex h-full w-full flex-col overflow-hidden text-white">
+      <div className="relative flex min-h-[100svh] w-full flex-col overflow-hidden text-white">
         <div className="flex items-center justify-between px-6 pt-6">
-          <Badge variant="light">The District Tap</Badge>
+          <div className="flex items-center gap-3">
+            <div className="relative h-9 w-9">
+              <Image src="/logo_mark.png" alt="The District Tap" fill className="object-contain brightness-0 invert" />
+            </div>
+            <span className="text-xs uppercase tracking-[0.3em] text-white/60">Menu</span>
+          </div>
           <Button
             type="button"
             variant="outline"
