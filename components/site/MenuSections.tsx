@@ -11,11 +11,18 @@ type MenuSectionsProps = {
 
 export function MenuSections({ menu }: MenuSectionsProps) {
   const [activeTitle, setActiveTitle] = useState("")
+  const [isNavigating, setIsNavigating] = useState(false)
   const menuTopRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setActiveTitle("")
   }, [menu.categories])
+
+  useEffect(() => {
+    if (!isNavigating) return
+    const timeout = setTimeout(() => setIsNavigating(false), 220)
+    return () => clearTimeout(timeout)
+  }, [activeTitle, isNavigating])
 
   useEffect(() => {
     if (!activeTitle) return
@@ -38,7 +45,10 @@ export function MenuSections({ menu }: MenuSectionsProps) {
               <button
                 key={category.title}
                 type="button"
-                onClick={() => setActiveTitle(category.title)}
+                onClick={() => {
+                  setIsNavigating(true)
+                  setActiveTitle(category.title)
+                }}
                 className="glass-tile rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left text-base font-semibold text-white/80 transition hover:border-white/30 hover:text-white"
               >
                 <span className="block">{category.title}</span>
@@ -65,10 +75,13 @@ export function MenuSections({ menu }: MenuSectionsProps) {
             </div>
             <button
               type="button"
-              onClick={() => setActiveTitle("")}
+              onClick={() => {
+                setIsNavigating(true)
+                setActiveTitle("")
+              }}
               className="rounded-full border border-white/15 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/60 transition hover:border-white/40 hover:text-white"
             >
-              Back
+              {isNavigating ? "Loading…" : "Back"}
             </button>
           </div>
           <ul className="grid gap-6 text-sm">
@@ -82,7 +95,7 @@ export function MenuSections({ menu }: MenuSectionsProps) {
                     ) : null}
                   </div>
                   {item.price ? (
-                    <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/90 tabular-nums">
+                    <span className="rounded-full border border-amber-300/40 bg-amber-400/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-200 tabular-nums">
                       {item.price}
                     </span>
                   ) : null}

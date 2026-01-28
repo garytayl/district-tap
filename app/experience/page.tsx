@@ -381,23 +381,37 @@ export default function MobileExperience() {
 
             <div className="flex flex-wrap gap-3">
               {subStep === "options" ? (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-white/30 text-white active:scale-[0.98] transition"
-                  onClick={() => advanceStep("location")}
-                >
-                  Change location
-                </Button>
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-white/30 text-white active:scale-[0.98] transition"
+                    onClick={() => advanceStep("location")}
+                  >
+                    Change location
+                  </Button>
+                  {isTransitioning ? (
+                    <span className="text-xs uppercase tracking-[0.3em] text-white/40">
+                      Loading…
+                    </span>
+                  ) : null}
+                </div>
               ) : (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-white/30 text-white active:scale-[0.98] transition"
-                  onClick={() => advanceSubStep("options")}
-                >
-                  Back to options
-                </Button>
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-white/30 text-white active:scale-[0.98] transition"
+                    onClick={() => advanceSubStep("options")}
+                  >
+                    Back to options
+                  </Button>
+                  {isTransitioning ? (
+                    <span className="text-xs uppercase tracking-[0.3em] text-white/40">
+                      Loading…
+                    </span>
+                  ) : null}
+                </div>
               )}
               {mapEmbedUrl ? (
                 <Button
