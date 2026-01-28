@@ -112,7 +112,7 @@ export default function MobileExperience() {
             href="/?skipExperience=1"
             className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white"
           >
-            Exit
+            Back to main site
           </Link>
         </div>
 

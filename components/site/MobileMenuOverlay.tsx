@@ -98,13 +98,13 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
               <span className="text-xs uppercase tracking-[0.3em] text-white/40">Fast</span>
             </div>
             <p className="mt-3 text-lg font-semibold">Start an order in seconds.</p>
-            <p className="mt-2 text-sm text-white/60">Delivery, carry-out, or the mobile flow.</p>
+            <p className="mt-2 text-sm text-white/60">Delivery, carry-out, or the Tap experience.</p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Button href={quickActions[0].href} variant="secondary" size="lg" onClick={onClose}>
                 Order Now
               </Button>
               <Button href="/experience" variant="outline" size="lg" className="border-white/30 text-white" onClick={onClose}>
-                Mobile Experience
+                Tap Experience
               </Button>
             </div>
           </div>
