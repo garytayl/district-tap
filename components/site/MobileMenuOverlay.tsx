@@ -12,11 +12,10 @@ type MobileMenuOverlayProps = {
   onClose: () => void
 }
 
+type SubmenuKey = "menu" | "private-events" | null
+
 export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
-  const [activeSubmenu, setActiveSubmenu] = useState<{
-    label: string
-    items: { label: string; href: string }[]
-  } | null>(null)
+  const [submenu, setSubmenu] = useState<SubmenuKey>(null)
 
   useEffect(() => {
     if (!open) return
@@ -37,9 +36,8 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
   }, [open, onClose])
 
   useEffect(() => {
-    if (!open) {
-      setActiveSubmenu(null)
-    }
+    if (!open) return
+    setSubmenu(null)
   }, [open])
 
   if (!open) return null
@@ -49,7 +47,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
       <div
         role="presentation"
         onClick={onClose}
-        className="absolute inset-0 h-[100svh] bg-neutral-950/90"
+        className="absolute inset-0 h-[100svh] bg-black/95"
       />
       <div className="pointer-events-none absolute inset-0">
         <div className="site-glow-layer" />
@@ -79,117 +77,125 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-12 pt-8 [scrollbar-gutter:stable]">
-          {activeSubmenu ? (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.4em] text-white/50">Back</p>
-                  <p className="text-2xl font-semibold">{activeSubmenu.label}</p>
-                </div>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="border-white/30 text-white hover:border-white/80 hover:bg-white/10"
-                  onClick={() => setActiveSubmenu(null)}
-                >
-                  Back
+          <div className="space-y-6">
+            <div className="glass-panel px-6 py-7">
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Quick order</p>
+              <p className="mt-3 text-2xl font-semibold">Start an order in seconds.</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Button href={quickActions[0].href} variant="secondary" size="lg">
+                  Order Now
+                </Button>
+                <Button href="/experience" variant="outline" size="lg" className="border-white/30 text-white">
+                  Mobile Experience
                 </Button>
               </div>
-              <div className="grid gap-3">
-                {activeSubmenu.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onClose}
-                    className="glass-tile flex items-center justify-between px-6 py-5 text-lg font-semibold text-white hover:text-amber-200"
-                  >
-                    {item.label}
-                    <span className="text-xs uppercase tracking-[0.3em] text-white/50">Go</span>
-                  </Link>
-                ))}
-              </div>
             </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="glass-panel px-6 py-7">
-                <p className="text-xs uppercase tracking-[0.4em] text-white/50">Quick order</p>
-                <p className="mt-3 text-2xl font-semibold">Start an order in seconds.</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Button href={quickActions[0].href} variant="secondary" size="lg">
-                    Order Now
-                  </Button>
-                  <Button href="/experience" variant="outline" size="lg" className="border-white/30 text-white">
-                    Mobile Experience
+
+            <div className="space-y-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Navigate</p>
+              {submenu === "menu" ? (
+                <div className="space-y-3">
+                  <div className="glass-tile px-6 py-5">
+                    <p className="text-xs uppercase tracking-[0.35em] text-white/60">Menu</p>
+                    <p className="mt-2 text-xl font-semibold">Pick a menu.</p>
+                    <div className="mt-4 grid gap-2">
+                      <Button href="/menu/lunch-and-dinner" variant="outline" size="sm" className="border-white/30 text-white">
+                        Lunch + Dinner
+                      </Button>
+                      <Button href="/menu/drinks" variant="outline" size="sm" className="border-white/30 text-white">
+                        Drinks
+                      </Button>
+                    </div>
+                  </div>
+                  <Button type="button" variant="outline" size="sm" className="border-white/20 text-white" onClick={() => setSubmenu(null)}>
+                    Back
                   </Button>
                 </div>
-              </div>
-
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-[0.4em] text-white/50">Navigate</p>
+              ) : submenu === "private-events" ? (
+                <div className="space-y-3">
+                  <div className="glass-tile px-6 py-5">
+                    <p className="text-xs uppercase tracking-[0.35em] text-white/60">Private Events</p>
+                    <p className="mt-2 text-xl font-semibold">Choose a location.</p>
+                    <div className="mt-4 grid gap-2">
+                      <Button href="/private-events/northside" variant="outline" size="sm" className="border-white/30 text-white">
+                        Northside
+                      </Button>
+                      <Button href="/private-events/downtown" variant="outline" size="sm" className="border-white/30 text-white">
+                        Downtown
+                      </Button>
+                    </div>
+                  </div>
+                  <Button type="button" variant="outline" size="sm" className="border-white/20 text-white" onClick={() => setSubmenu(null)}>
+                    Back
+                  </Button>
+                </div>
+              ) : (
                 <div className="grid gap-3">
                   {navLinks.map((link) => {
-                    if (link.children?.length) {
+                    const hasMenuSubmenu = link.label === "Menu"
+                    const hasPrivateEventsSubmenu = link.label === "Private Events"
+
+                    if (hasMenuSubmenu || hasPrivateEventsSubmenu) {
                       return (
                         <button
                           key={link.label}
                           type="button"
-                          className="glass-tile flex items-center justify-between px-6 py-5 text-left"
-                          onClick={() => setActiveSubmenu({ label: link.label, items: link.children ?? [] })}
+                          onClick={() => setSubmenu(hasMenuSubmenu ? "menu" : "private-events")}
+                          className="glass-tile px-6 py-5 text-left transition hover:border-white/40"
                         >
-                          <span className="text-lg font-semibold text-white">{link.label}</span>
-                          <span className="text-xs uppercase tracking-[0.3em] text-white/50">Open</span>
+                          <p className="text-lg font-semibold text-white">{link.label}</p>
+                          <p className="mt-1 text-sm text-white/60">Tap to explore</p>
                         </button>
                       )
                     }
+
                     return (
                       <Link
                         key={link.label}
                         href={link.href}
                         onClick={onClose}
-                        className="glass-tile flex items-center justify-between px-6 py-5 text-lg font-semibold text-white hover:text-amber-200"
+                        className="glass-tile px-6 py-5 text-lg font-semibold text-white transition hover:border-white/40 hover:text-amber-200"
                       >
                         {link.label}
-                        <span className="text-xs uppercase tracking-[0.3em] text-white/50">Go</span>
                       </Link>
                     )
                   })}
                 </div>
-              </div>
+              )}
+            </div>
 
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-[0.4em] text-white/50">Locations</p>
-                <div className="grid gap-3">
-                  {Object.values(locations).map((location) => (
-                    <div key={location.id} className="glass-tile px-6 py-5">
-                      <div className="space-y-2">
-                        <p className="text-xs uppercase tracking-[0.35em] text-white/60">{location.name}</p>
-                        <p className="text-lg font-semibold">{location.addressLines[0]}</p>
-                        <p className="text-sm text-white/70">{location.addressLines[1]}</p>
-                        <p className="text-sm text-white/70">{location.phone}</p>
-                      </div>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        <Button href={location.mapUrl} variant="outline" size="sm" className="border-white/20 text-white">
-                          Directions
-                        </Button>
-                        <Button href={location.orderUrl} variant="secondary" size="sm">
-                          Order
-                        </Button>
-                      </div>
+            <div className="space-y-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Locations</p>
+              <div className="grid gap-3">
+                {Object.values(locations).map((location) => (
+                  <div key={location.id} className="glass-tile px-6 py-5">
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-[0.35em] text-white/60">{location.name}</p>
+                      <p className="text-lg font-semibold">{location.addressLines[0]}</p>
+                      <p className="text-sm text-white/70">{location.addressLines[1]}</p>
+                      <p className="text-sm text-white/70">{location.phone}</p>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {quickActions.slice(1).map((action) => (
-                  <Button key={action.label} href={action.href} variant="outline" size="sm" className="border-white/20 text-white">
-                    {action.label}
-                  </Button>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <Button href={location.mapUrl} variant="outline" size="sm" className="border-white/20 text-white">
+                        Directions
+                      </Button>
+                      <Button href={location.orderUrl} variant="secondary" size="sm">
+                        Order
+                      </Button>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
-          )}
+
+            <div className="flex flex-wrap gap-2">
+              {quickActions.slice(1).map((action) => (
+                <Button key={action.label} href={action.href} variant="outline" size="sm" className="border-white/20 text-white">
+                  {action.label}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
