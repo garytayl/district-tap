@@ -55,7 +55,7 @@ export function Button({
   const classes = cn(buttonVariants({ variant, size, className }))
 
   if (href) {
-    const { children, ...rest } = props as ButtonAsLinkProps
+    const { children, href: _href, ...rest } = props as ButtonAsLinkProps
     const external = href.startsWith("http")
     return (
       <Link
