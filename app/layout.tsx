@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: "The District Tap | Indianapolis Craft Beer + Kitchen",
   description:
     "Craft beer, cocktails, and damn good food in Indianapolis. Lunch, dinner, live music, private events, and catering at Northside and Downtown.",
+  icons: {
+    icon: "/logo_mark.png",
+    shortcut: "/logo_mark.png",
+    apple: "/logo_mark.png",
+  },
 }
 
 export default function RootLayout({
