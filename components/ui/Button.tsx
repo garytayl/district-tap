@@ -28,11 +28,21 @@ const buttonVariants = cva(
   },
 )
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-    href?: string
+type ButtonBaseProps = VariantProps<typeof buttonVariants> & {
+  asChild?: boolean
+}
+
+type ButtonAsButtonProps = ButtonBaseProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    href?: undefined
   }
+
+type ButtonAsLinkProps = ButtonBaseProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string
+  }
+
+type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps
 
 export function Button({
   className,
@@ -45,7 +55,7 @@ export function Button({
   const classes = cn(buttonVariants({ variant, size, className }))
 
   if (href) {
-    const { children, type: _type, ...rest } = props
+    const { children, ...rest } = props as ButtonAsLinkProps
     const external = href.startsWith("http")
     return (
       <Link
