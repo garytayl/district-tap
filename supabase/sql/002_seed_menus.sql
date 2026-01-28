@@ -122,8 +122,23 @@ values
       },
       {
         "title": "Soups + Salads",
-        "description": "Dressings: Asian Ginger, House-Made Ranch, Chunky Blue Cheese, Balsamic Vinaigrette, Caesar, Honey Mustard, French, Italian, Chipotle Ranch, Raspberry Walnut Vinaigrette. Add to any salad: Chicken 6, Shrimp 6, Salmon* 8, Filet* 8. Soups: Cup 6 | Bowl 8.",
+        "description": "Soups, dressings, and salad add-ons.",
         "items": [
+          {
+            "name": "Dressings",
+            "tags": [
+              "Asian Ginger",
+              "House-Made Ranch",
+              "Chunky Blue Cheese",
+              "Balsamic Vinaigrette",
+              "Caesar",
+              "Honey Mustard",
+              "French",
+              "Italian",
+              "Chipotle Ranch",
+              "Raspberry Walnut Vinaigrette"
+            ]
+          },
           { "name": "District Cobb" },
           {
             "name": "KB’s Super Food",

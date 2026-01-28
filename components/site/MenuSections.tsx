@@ -71,14 +71,14 @@ export function MenuSections({ menu }: MenuSectionsProps) {
               Back
             </button>
           </div>
-          <ul className="grid gap-4 text-sm">
+          <ul className="grid gap-6 text-sm">
             {activeCategory.items.map((item) => (
-              <li key={item.name} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div className="flex flex-wrap items-start justify-between gap-3">
+              <li key={item.name} className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-7">
+                <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="space-y-1">
                     <span className="block text-base font-semibold text-white">{item.name}</span>
                     {item.details ? (
-                      <p className="text-sm leading-relaxed text-white/70">{item.details}</p>
+                      <p className="text-sm leading-relaxed text-white/70 md:text-base">{item.details}</p>
                     ) : null}
                   </div>
                   {item.price ? (
@@ -88,11 +88,25 @@ export function MenuSections({ menu }: MenuSectionsProps) {
                   ) : null}
                 </div>
                 {item.tags?.length ? (
-                  <p className="mt-2 text-[11px] uppercase tracking-[0.24em] text-white/40">
-                    {item.tags.join(" • ")}
-                  </p>
+                  <div className="mt-4 space-y-3">
+                    {item.name.toLowerCase().includes("dressing") ? (
+                      <p className="text-xs uppercase tracking-[0.24em] text-white/45">
+                        Dressings available
+                      </p>
+                    ) : null}
+                    <div className="flex flex-wrap gap-2">
+                      {item.tags.map((tag) => (
+                        <span
+                          key={`${item.name}-${tag}`}
+                          className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ) : null}
-                {item.notes ? <p className="mt-2 text-xs text-white/55">{item.notes}</p> : null}
+                {item.notes ? <p className="mt-4 text-xs text-white/55">{item.notes}</p> : null}
               </li>
             ))}
           </ul>
