@@ -45,7 +45,7 @@ export function Header() {
                 type="button"
                 variant="outline"
                 size="sm"
-                className="border-amber-300/40 bg-amber-500/10 text-amber-100 shadow-[0_0_18px_rgba(251,191,36,0.35)] hover:border-amber-200/80 hover:bg-amber-500/20"
+                className="border-amber-300/50 bg-black/60 text-amber-100 shadow-[0_0_18px_rgba(251,191,36,0.25)] hover:border-amber-200/80 hover:bg-black/70"
                 onClick={() => setMobileMenuOpen(true)}
               >
                 Menu
