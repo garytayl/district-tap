@@ -44,7 +44,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
   return (
     <div className="fixed inset-0 z-50 h-[100svh]">
-      <div role="presentation" className="pointer-events-none absolute inset-0 h-[100svh] bg-black/95" />
+      <div role="presentation" className="pointer-events-none absolute inset-0 h-[100svh] bg-black/98" />
       <div className="pointer-events-none absolute inset-0">
         <div className="site-glow-layer" />
         <div className="absolute -left-24 top-10 h-56 w-56 rounded-full bg-amber-500/20 blur-3xl" />
@@ -53,8 +53,8 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         <div className="absolute inset-0 site-noise" />
       </div>
 
-      <div className="relative z-10 flex h-[100svh] w-full flex-col overflow-y-auto overscroll-contain touch-pan-y text-white pointer-events-auto">
-        <div className="sticky top-0 z-10 flex items-center justify-between bg-black/80 px-6 pt-6 pb-4 backdrop-blur">
+      <div className="relative z-10 flex h-[100svh] w-full flex-col overflow-y-auto overscroll-contain touch-pan-y bg-neutral-950/95 text-white pointer-events-auto">
+        <div className="sticky top-0 z-10 flex items-center justify-between bg-black/90 px-6 pt-6 pb-4 backdrop-blur">
           <div className="flex items-center gap-3">
             <div className="relative h-9 w-9">
               <Image src="/logo_mark.png" alt="The District Tap" fill className="object-contain brightness-0 invert" />
