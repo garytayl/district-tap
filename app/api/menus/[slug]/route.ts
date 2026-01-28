@@ -1,13 +1,15 @@
+import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 
 import { fetchMenuBySlug } from "@/lib/sanity"
 
 export async function GET(
-  _request: Request,
-  { params }: { params: { slug: string } },
+  _request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> },
 ) {
   try {
-    const menu = await fetchMenuBySlug(params.slug)
+    const { slug } = await params
+    const menu = await fetchMenuBySlug(slug)
     return NextResponse.json({ menu })
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error"
