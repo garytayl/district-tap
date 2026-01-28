@@ -59,7 +59,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-50 h-[100svh] transition-opacity duration-200 ease-out ${
+      className={`fixed inset-0 z-50 h-[100svh] transition-opacity duration-300 ease-out ${
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >
@@ -72,7 +72,11 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         <div className="absolute inset-0 site-noise" />
       </div>
 
-      <div className="relative z-10 flex h-[100svh] w-full flex-col overflow-y-auto overscroll-contain touch-pan-y bg-neutral-950/95 text-white pointer-events-auto">
+      <div
+        className={`relative z-10 flex h-[100svh] w-full flex-col overflow-y-auto overscroll-contain touch-pan-y bg-neutral-950/95 text-white pointer-events-auto transition-transform duration-300 ease-out ${
+          isVisible ? "translate-y-0" : "translate-y-2"
+        }`}
+      >
         <div className="sticky top-0 z-10 flex items-center justify-between bg-black/90 px-6 pt-6 pb-4 backdrop-blur">
           <div className="flex items-center gap-3">
             <div className="relative h-9 w-9">

@@ -24,7 +24,7 @@ export function MenuSections({ menu }: MenuSectionsProps) {
   return (
     <div className="grid gap-6">
       {!activeCategory ? (
-        <div className="space-y-3">
+        <div className="space-y-3 animate-in fade-in-0 slide-in-from-bottom-2 duration-300">
           <p className="text-xs uppercase tracking-[0.3em] text-white/50">Categories</p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {menu.categories.map((category) => (
@@ -40,7 +40,7 @@ export function MenuSections({ menu }: MenuSectionsProps) {
           </div>
         </div>
       ) : (
-        <Card className="gap-4">
+        <Card key={activeCategory.title} className="gap-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-300">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="space-y-2">
               <h2 className="text-xl font-semibold">{activeCategory.title}</h2>
