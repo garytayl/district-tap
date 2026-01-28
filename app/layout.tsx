@@ -29,6 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`}>
+        <div className="pointer-events-none fixed inset-0 -z-10">
+          <div className="site-glow-layer" />
+          <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-amber-500/15 blur-[140px]" />
+          <div className="absolute right-0 top-1/4 h-96 w-96 rounded-full bg-orange-500/12 blur-[160px]" />
+          <div className="absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-red-500/10 blur-[180px]" />
+          <div className="absolute inset-0 site-noise" />
+        </div>
         <Header />
         {children}
         <Footer />

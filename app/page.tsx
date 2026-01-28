@@ -45,7 +45,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative mx-auto flex max-w-6xl flex-col gap-10 rounded-[36px] border border-white/10 bg-white px-6 py-16 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+      <section className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16">
+        <div className="glass-panel px-6 py-10">
         <PageHeader
           eyebrow="Menus"
           title="Every craving has a home here."
@@ -55,7 +56,7 @@ export default function Home() {
           {menuLinks.map((link) => (
             <Card key={link.href} className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-black/50">Menu</p>
+                <p className="text-sm text-white/60">Menu</p>
                 <p className="text-lg font-semibold">{link.label}</p>
               </div>
               <Button href={link.href} variant="outline" size="sm">
@@ -63,6 +64,7 @@ export default function Home() {
               </Button>
             </Card>
           ))}
+        </div>
         </div>
       </section>
 
@@ -99,7 +101,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto flex max-w-6xl flex-col gap-10 rounded-[36px] border border-white/10 bg-white px-6 py-16 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+      <section className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16">
+        <div className="glass-panel px-6 py-10">
         <PageHeader
           eyebrow="Private Events"
           title="Host your next event with us."
@@ -117,7 +120,7 @@ export default function Home() {
         <div className="grid gap-6 md:grid-cols-3">
           <Card>
             <h3 className="text-lg font-semibold">Northside Rooms</h3>
-            <p className="text-sm text-black/60">
+            <p className="text-sm text-white/70">
               The Rickhouse, Craft Cellar, Game Room, Parlor, and Fieldhouse.
             </p>
             <Button href="/private-events/northside" variant="outline" size="sm" className="mt-4">
@@ -126,25 +129,26 @@ export default function Home() {
           </Card>
           <Card>
             <h3 className="text-lg font-semibold">Downtown Rooms</h3>
-            <p className="text-sm text-black/60">Downtown Parlor, Fieldhouse, and flexible lounge options.</p>
+            <p className="text-sm text-white/70">Downtown Parlor, Fieldhouse, and flexible lounge options.</p>
             <Button href="/private-events/downtown" variant="outline" size="sm" className="mt-4">
               View Downtown
             </Button>
           </Card>
           <Card>
             <h3 className="text-lg font-semibold">Catering + Event Menu</h3>
-            <p className="text-sm text-black/60">Full-service catering and large-format menus for groups.</p>
+            <p className="text-sm text-white/70">Full-service catering and large-format menus for groups.</p>
             <Button href="/catering" variant="outline" size="sm" className="mt-4">
               Learn More
             </Button>
           </Card>
         </div>
+        </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-6 rounded-[36px] border border-white/10 bg-white px-6 pb-20 pt-16 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)] md:grid-cols-2">
+      <section className="mx-auto grid max-w-6xl gap-6 px-6 pb-20 pt-16 md:grid-cols-2">
         <Card>
           <h3 className="text-xl font-semibold">Gift Cards</h3>
-          <p className="text-sm text-black/60">
+          <p className="text-sm text-white/70">
             Give the gift of great food, great beer, and even better experiences.
           </p>
           <div className="mt-4">
@@ -155,7 +159,7 @@ export default function Home() {
         </Card>
         <Card>
           <h3 className="text-xl font-semibold">Join the team</h3>
-          <p className="text-sm text-black/60">
+          <p className="text-sm text-white/70">
             We are always looking for people who care about hospitality, craft, and community.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -172,14 +176,14 @@ export default function Home() {
         </Card>
       </section>
 
-      <section className="mx-auto mt-12 max-w-6xl rounded-[36px] border border-white/10 bg-white py-10 text-black shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
+      <section className="mx-auto mt-12 max-w-6xl rounded-[36px] border border-white/10 bg-white/5 py-10 text-white shadow-[0_20px_60px_rgba(0,0,0,0.2)]">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6">
-          <p className="text-sm text-black/60">Stay in the loop for new events, menus, and specials.</p>
+          <p className="text-sm text-white/70">Stay in the loop for new events, menus, and specials.</p>
           <div className="flex flex-wrap items-center gap-3">
             <Button href="/loyalty" variant="secondary" size="sm">
               Join Loyalty
             </Button>
-            <Link href="/contact" className="text-sm font-semibold text-black/60 hover:text-black">
+            <Link href="/contact" className="text-sm font-semibold text-white/70 hover:text-white">
               Contact Us
             </Link>
           </div>

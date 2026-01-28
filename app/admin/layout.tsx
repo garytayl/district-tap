@@ -16,13 +16,13 @@ const navItems = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="admin-shell min-h-screen bg-white">
       <main className="mx-auto grid max-w-6xl gap-8 px-6 py-16 lg:grid-cols-[240px_1fr]">
         <aside className="space-y-4">
           <div className="space-y-2">
             <div className="text-xs font-mono uppercase tracking-wider text-black/40">Admin</div>
             <h2 className="text-2xl font-semibold">Command Center</h2>
-            <Badge>Internal</Badge>
+            <Badge variant="dark">Internal</Badge>
           </div>
           <nav className="flex flex-col gap-2">
             {navItems.map((item) => (
