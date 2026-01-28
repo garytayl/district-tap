@@ -74,8 +74,12 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
         <div className="space-y-6 px-6 pb-12 pt-4 [scrollbar-gutter:stable]">
           <div className="glass-panel px-6 py-7">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/50">Quick order</p>
-            <p className="mt-3 text-2xl font-semibold">Start an order in seconds.</p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs uppercase tracking-[0.4em] text-amber-200">Quick Order</p>
+              <span className="text-xs uppercase tracking-[0.3em] text-white/40">Fast</span>
+            </div>
+            <p className="mt-3 text-lg font-semibold">Start an order in seconds.</p>
+            <p className="mt-2 text-sm text-white/60">Delivery, carry-out, or the mobile flow.</p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Button href={quickActions[0].href} variant="secondary" size="lg">
                 Order Now
@@ -87,7 +91,11 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </div>
 
           <div className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/50">Navigate</p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs uppercase tracking-[0.4em] text-amber-200">Navigate</p>
+              <span className="text-xs uppercase tracking-[0.3em] text-white/40">Explore</span>
+            </div>
+            <p className="text-sm text-white/60">Jump into menus, events, and pages.</p>
             {submenu === "menu" ? (
               <div className="space-y-3">
                 <div className="glass-tile px-6 py-5">
@@ -160,7 +168,11 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </div>
 
           <div className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/50">Locations</p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs uppercase tracking-[0.4em] text-amber-200">Locations</p>
+              <span className="text-xs uppercase tracking-[0.3em] text-white/40">Visit</span>
+            </div>
+            <p className="text-sm text-white/60">Find hours, directions, and order links.</p>
             <div className="grid gap-3">
               {Object.values(locations).map((location) => (
                 <div key={location.id} className="glass-tile px-6 py-5">
