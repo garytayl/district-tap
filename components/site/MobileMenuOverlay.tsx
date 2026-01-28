@@ -35,9 +35,8 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
   return (
     <div className="fixed inset-0 z-50 h-[100svh]">
-      <button
-        type="button"
-        aria-label="Close menu"
+      <div
+        role="presentation"
         onClick={onClose}
         className="absolute inset-0 h-[100svh] bg-neutral-950/90"
       />
@@ -49,7 +48,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         <div className="absolute inset-0 site-noise" />
       </div>
 
-      <div className="relative flex min-h-[100svh] w-full flex-col text-white">
+      <div className="relative z-10 flex min-h-[100svh] w-full flex-col text-white">
         <div className="flex items-center justify-between px-6 pt-6">
           <div className="flex items-center gap-3">
             <div className="relative h-9 w-9">
