@@ -323,7 +323,7 @@ export default function MobileExperience() {
                       Drinks Menu
                     </Button>
                   </div>
-                </button>
+                </div>
               </div>
             ) : null}
 
