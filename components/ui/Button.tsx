@@ -71,8 +71,9 @@ export function Button({
   }
 
   const Comp = asChild ? Slot : "button"
+  const buttonProps = props as ButtonAsButtonProps
 
-  return <Comp className={classes} {...props} />
+  return <Comp className={classes} {...buttonProps} />
 }
 
 export { buttonVariants }
