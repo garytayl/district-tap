@@ -35,9 +35,8 @@ export function Header() {
             <div className="flex items-center gap-2 lg:hidden">
               <Button
                 href={quickActions[0].href}
-                variant="secondary"
+                variant="primary"
                 size="sm"
-                className="text-black"
               >
                 Order
               </Button>
