@@ -61,6 +61,8 @@ export const quickActions = [
   },
 ]
 
+export const untappdUrl = "https://untappd.com/v/the-district-tap/2163231"
+
 export const navLinks: NavLink[] = [
   {
     label: "About",
@@ -142,20 +144,24 @@ export const aboutHighlights = [
 
 export const menuLinks = [
   {
-    label: "Downtown Menu (PDF)",
-    href: "/menu/lunch-and-dinner/downtown",
-  },
-  {
-    label: "Downtown Event Menu (PDF)",
-    href: "/menu/lunch-and-dinner/event",
-  },
-  {
-    label: "Northside Menu (PDF)",
+    label: "Northside Menu (In-Page)",
     href: "/menu/lunch-and-dinner/northside",
   },
   {
+    label: "Downtown Menu (PDF)",
+    href: "/menus/downtown-lunch-dinner.pdf",
+  },
+  {
+    label: "Downtown Event Menu (PDF)",
+    href: "/menus/downtown-event-menu.pdf",
+  },
+  {
     label: "Northside Brunch (PDF)",
-    href: "/menu/lunch-and-dinner/brunch",
+    href: "/menus/northside-brunch.pdf",
+  },
+  {
+    label: "Northside Menu (PDF)",
+    href: "/menus/northside-lunch-dinner.pdf",
   },
 ]
 

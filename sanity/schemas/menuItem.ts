@@ -8,5 +8,12 @@ export const menuItem = defineType({
     defineField({ name: "name", title: "Name", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "price", title: "Price", type: "string" }),
     defineField({ name: "details", title: "Details", type: "text" }),
+    defineField({
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({ name: "notes", title: "Notes", type: "text" }),
   ],
 })

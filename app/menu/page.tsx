@@ -10,7 +10,7 @@ const menuCards = [
   },
   {
     title: "Drinks",
-    description: "Craft beer, cocktails, wine, bourbon, and whiskey lists by location.",
+    description: "Live drink list hosted on Untappd.",
     href: "/menu/drinks",
   },
 ]
@@ -21,7 +21,7 @@ export default function MenuPage() {
       <PageHeader
         eyebrow="Menu"
         title="Every menu, every location."
-        description="Browse lunch + dinner, brunch, event menus, and the full libations list."
+        description="Browse lunch + dinner, brunch, event menus, and our live Untappd drink list."
       />
 
       <div className="grid gap-6 md:grid-cols-2">

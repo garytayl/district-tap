@@ -9,7 +9,7 @@ export default function LunchDinnerPage() {
       <PageHeader
         eyebrow="Lunch + Dinner"
         title="The District Tap food lineup."
-        description="Browse menus for each location, plus our downtown event menu and Northside brunch." 
+        description="Browse our in-page Northside menu plus downloadable PDFs for other menus."
       />
 
       <div className="grid gap-4 md:grid-cols-2">

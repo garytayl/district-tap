@@ -17,7 +17,9 @@ export default function AdminMenusPage() {
       <div className="space-y-3">
         <Badge>Menus</Badge>
         <h1 className="text-3xl font-semibold">Menu management</h1>
-        <p className="text-sm text-black/60">Track updates for food, brunch, event, and drinks menus.</p>
+        <p className="text-sm text-black/60">
+          Menus are stored in Supabase, with PDFs stored in public assets.
+        </p>
       </div>
 
       <Card>
@@ -26,9 +28,11 @@ export default function AdminMenusPage() {
             <h2 className="text-xl font-semibold">Menu list</h2>
             <p className="text-sm text-black/60">Drafts and published menus by location.</p>
           </div>
-          <Button variant="secondary" size="sm">
-            Add Menu
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm">
+              Edit menu data
+            </Button>
+          </div>
         </div>
         <div className="mt-6 grid gap-3 text-sm">
           {menus.map((menu) => (
@@ -40,7 +44,7 @@ export default function AdminMenusPage() {
               <div className="flex items-center gap-3">
                 <Badge>{menu.status}</Badge>
                 <Button variant="outline" size="sm">
-                  Edit
+                  Edit menu data
                 </Button>
               </div>
             </div>

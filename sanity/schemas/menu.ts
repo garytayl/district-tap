@@ -34,6 +34,12 @@ export const menu = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "isPublished",
+      title: "Published",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({
       name: "subtitle",
       title: "Subtitle",
       type: "string",

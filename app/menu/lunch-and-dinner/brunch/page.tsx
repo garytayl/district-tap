@@ -1,45 +1,25 @@
 import { PageHeader } from "@/components/site/PageHeader"
+import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
-import { fetchMenuBySlug } from "@/lib/sanity"
 
-export default async function BrunchMenuPage() {
-  const menu = await fetchMenuBySlug("brunch")
+const pdfUrl = "/menus/northside-brunch.pdf"
 
-  if (!menu) {
-    return null
-  }
+export default function BrunchMenuPage() {
   return (
     <main className="mx-auto flex max-w-5xl flex-col gap-10 px-6 py-16">
       <PageHeader
         eyebrow="Northside Brunch"
-        title={menu.title}
-        description={menu.subtitle ?? "Brunch shareables, hearty plates, and libations only at the Northside location."}
+        title="Northside Brunch"
+        description="Download the latest Northside brunch menu PDF."
       />
 
-      <div className="grid gap-6">
-        {menu.categories.map((category) => (
-          <Card key={category.title}>
-            <h2 className="text-xl font-semibold">{category.title}</h2>
-            <ul className="mt-4 space-y-3 text-sm">
-              {category.items.map((item) => (
-                <li key={item.name} className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold">{item.name}</span>
-                    {item.price ? <span className="text-black/50">{item.price}</span> : null}
-                  </div>
-                  {item.details ? <p className="text-black/60">{item.details}</p> : null}
-                </li>
-              ))}
-            </ul>
-          </Card>
-        ))}
-      </div>
-
-      <Card>
-        <p className="text-sm text-black/60">{menu.allergenNotice}</p>
-        <a href="/food-safety" className="mt-3 inline-flex text-sm font-semibold text-black/60 hover:text-black">
-          Food safety details →
-        </a>
+      <Card className="space-y-4">
+        <p className="text-sm text-white/70">
+          Brunch runs at the Northside location. Grab the most current PDF menu.
+        </p>
+        <Button href={pdfUrl} variant="secondary" size="sm">
+          Download PDF
+        </Button>
       </Card>
     </main>
   )

@@ -1,11 +1,10 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
-
-import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
-import { locations } from "@/lib/site-data"
+import { locations, untappdUrl } from "@/lib/site-data"
 
 const locationOptions = Object.values(locations)
 
@@ -13,12 +12,12 @@ const menuByLocation = {
   northside: {
     label: "Northside Menu",
     href: "/menu/lunch-and-dinner/northside",
-    drinksHref: "/menu/drinks/northside",
+    drinksHref: untappdUrl,
   },
   downtown: {
     label: "Downtown Menu",
     href: "/menu/lunch-and-dinner/downtown",
-    drinksHref: "/menu/drinks/downtown",
+    drinksHref: untappdUrl,
   },
 }
 
@@ -107,7 +106,15 @@ export default function MobileExperience() {
 
       <div className="relative mx-auto flex w-full flex-col px-6 pb-24 pt-6 sm:px-10 sm:pt-10">
         <div className="flex items-center justify-between gap-3">
-          <Badge variant="light">District Tap</Badge>
+          <div className="relative h-9 w-9">
+            <Image
+              src="/logo_mark.png"
+              alt="The District Tap"
+              fill
+              className="object-contain brightness-0 invert"
+              priority
+            />
+          </div>
           <Link
             href="/?skipExperience=1"
             className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white"
