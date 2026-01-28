@@ -39,3 +39,16 @@ create policy "Menus are readable by everyone"
   on public.menus
   for select
   using (is_published = true);
+
+drop policy if exists "Menus are readable by service role" on public.menus;
+create policy "Menus are readable by service role"
+  on public.menus
+  for select
+  using (auth.role() = 'service_role');
+
+drop policy if exists "Menus are editable by service role" on public.menus;
+create policy "Menus are editable by service role"
+  on public.menus
+  for all
+  using (auth.role() = 'service_role')
+  with check (auth.role() = 'service_role');

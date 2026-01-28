@@ -32,15 +32,23 @@ export function MenuSections({ menu }: MenuSectionsProps) {
                 key={category.title}
                 type="button"
                 onClick={() => setActiveTitle(category.title)}
-                className="glass-tile px-4 py-3 text-left text-sm font-semibold text-white/70 transition hover:text-white"
+                className="glass-tile rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left text-base font-semibold text-white/80 transition hover:border-white/30 hover:text-white"
               >
-                {category.title}
+                <span className="block">{category.title}</span>
+                {category.description ? (
+                  <span className="mt-1 block text-sm font-normal text-white/50">
+                    {category.description}
+                  </span>
+                ) : null}
               </button>
             ))}
           </div>
         </div>
       ) : (
-        <Card key={activeCategory.title} className="gap-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-300">
+        <Card
+          key={activeCategory.title}
+          className="gap-4 animate-in fade-in-0 slide-in-from-bottom-2 duration-300"
+        >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="space-y-2">
               <h2 className="text-xl font-semibold">{activeCategory.title}</h2>
@@ -51,23 +59,33 @@ export function MenuSections({ menu }: MenuSectionsProps) {
             <button
               type="button"
               onClick={() => setActiveTitle("")}
-              className="text-xs uppercase tracking-[0.3em] text-white/50 hover:text-white"
+              className="rounded-full border border-white/15 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/60 transition hover:border-white/40 hover:text-white"
             >
               Back
             </button>
           </div>
-          <ul className="space-y-3 text-sm">
+          <ul className="grid gap-4 text-sm">
             {activeCategory.items.map((item) => (
-              <li key={item.name} className="space-y-1">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="font-semibold">{item.name}</span>
-                  {item.price ? <span className="text-white/60">{item.price}</span> : null}
+              <li key={item.name} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="space-y-1">
+                    <span className="block text-base font-semibold text-white">{item.name}</span>
+                    {item.details ? (
+                      <p className="text-sm leading-relaxed text-white/70">{item.details}</p>
+                    ) : null}
+                  </div>
+                  {item.price ? (
+                    <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/90 tabular-nums">
+                      {item.price}
+                    </span>
+                  ) : null}
                 </div>
-                {item.details ? <p className="text-white/70">{item.details}</p> : null}
                 {item.tags?.length ? (
-                  <p className="text-xs uppercase tracking-[0.2em] text-white/40">{item.tags.join(" • ")}</p>
+                  <p className="mt-2 text-[11px] uppercase tracking-[0.24em] text-white/40">
+                    {item.tags.join(" • ")}
+                  </p>
                 ) : null}
-                {item.notes ? <p className="text-xs text-white/50">{item.notes}</p> : null}
+                {item.notes ? <p className="mt-2 text-xs text-white/55">{item.notes}</p> : null}
               </li>
             ))}
           </ul>
