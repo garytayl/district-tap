@@ -4,19 +4,19 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
+import { MenuSections } from "@/components/site/MenuSections"
 import { locations, untappdUrl } from "@/lib/site-data"
+import type { SanityMenu } from "@/lib/sanity"
 
 const locationOptions = Object.values(locations)
 
 const menuByLocation = {
   northside: {
     label: "Northside Menu",
-    href: "/menu/lunch-and-dinner/northside",
     drinksHref: untappdUrl,
   },
   downtown: {
     label: "Downtown Menu",
-    href: "/menu/lunch-and-dinner/downtown",
     drinksHref: untappdUrl,
   },
 }
@@ -41,6 +41,9 @@ export default function MobileExperience() {
   const [subStep, setSubStep] = useState<"options" | "menu" | "dine" | "delivery">("options")
   const [selectedLocationId, setSelectedLocationId] = useState<keyof typeof locations | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [menuData, setMenuData] = useState<SanityMenu | null>(null)
+  const [menuLoading, setMenuLoading] = useState(false)
+  const [menuError, setMenuError] = useState<string | null>(null)
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const selectedLocation = useMemo(
     () => (selectedLocationId ? locations[selectedLocationId] : null),
@@ -61,6 +64,39 @@ export default function MobileExperience() {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (subStep !== "menu" || !selectedLocation) {
+      setMenuData(null)
+      setMenuError(null)
+      setMenuLoading(false)
+      return
+    }
+
+    let isActive = true
+    setMenuLoading(true)
+    setMenuError(null)
+
+    fetch(`/api/menus/${selectedLocation.id}`)
+      .then((response) => response.json())
+      .then((payload) => {
+        if (!isActive) return
+        setMenuData(payload.menu ?? null)
+        setMenuError(payload.error ?? null)
+      })
+      .catch((error: Error) => {
+        if (!isActive) return
+        setMenuError(error.message)
+      })
+      .finally(() => {
+        if (!isActive) return
+        setMenuLoading(false)
+      })
+
+    return () => {
+      isActive = false
+    }
+  }, [selectedLocation, subStep])
 
   const menuConfig = selectedLocation ? menuByLocation[selectedLocation.id] : null
   const mapEmbedUrl = selectedLocation
@@ -260,21 +296,21 @@ export default function MobileExperience() {
 
             {subStep === "menu" ? (
               <div className="grid gap-5">
-                <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
+                <div className="glass-tile p-7 text-left">
                   <p className="text-2xl font-semibold sm:text-3xl">Food menu</p>
                   <p className="text-base text-white/60 sm:text-lg">Lunch + dinner favorites.</p>
-                  <div className="mt-6">
-                    <Button
-                      href={menuConfig?.href ?? "/menu"}
-                      variant="secondary"
-                      size="lg"
-                      className="text-base sm:text-lg active:scale-[0.98] transition"
-                    >
-                      {menuConfig?.label ?? "View Menu"}
-                    </Button>
-                  </div>
-                </button>
-                <button type="button" className="glass-tile p-7 text-left active:scale-[0.98]">
+                </div>
+                {menuLoading ? (
+                  <div className="glass-tile p-7 text-sm text-white/60">Loading menu...</div>
+                ) : null}
+                {!menuLoading && menuError ? (
+                  <div className="glass-tile p-7 text-sm text-white/60">Unable to load menu right now.</div>
+                ) : null}
+                {!menuLoading && !menuError && menuData ? <MenuSections menu={menuData} /> : null}
+                {!menuLoading && !menuError && !menuData ? (
+                  <div className="glass-tile p-7 text-sm text-white/60">Menu not available yet.</div>
+                ) : null}
+                <div className="glass-tile p-7 text-left">
                   <p className="text-2xl font-semibold sm:text-3xl">Drinks</p>
                   <p className="text-base text-white/60 sm:text-lg">Cocktails, beer, and wine.</p>
                   <div className="mt-6">
