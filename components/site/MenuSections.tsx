@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import { Card } from "@/components/ui/Card"
 import type { SanityMenu } from "@/lib/sanity"
@@ -11,10 +11,17 @@ type MenuSectionsProps = {
 
 export function MenuSections({ menu }: MenuSectionsProps) {
   const [activeTitle, setActiveTitle] = useState("")
+  const menuTopRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setActiveTitle("")
   }, [menu.categories])
+
+  useEffect(() => {
+    if (!activeTitle) return
+    menuTopRef.current?.scrollIntoView({ block: "start", behavior: "auto" })
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+  }, [activeTitle])
 
   const activeCategory = useMemo(() => {
     if (!activeTitle) return null
@@ -22,7 +29,7 @@ export function MenuSections({ menu }: MenuSectionsProps) {
   }, [activeTitle, menu.categories])
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6" ref={menuTopRef}>
       {!activeCategory ? (
         <div className="space-y-3 animate-in fade-in-0 slide-in-from-bottom-2 duration-300">
           <p className="text-xs uppercase tracking-[0.3em] text-white/50">Categories</p>
