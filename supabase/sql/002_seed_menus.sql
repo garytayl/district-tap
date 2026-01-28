@@ -18,8 +18,8 @@ values
     'From wings to burgers and pizzas, this menu keeps the classics tight.',
     $$[
       {
-        "title": "Signature Selection",
-        "description": "New Item",
+        "title": "Starters + Specials",
+        "description": "Starters, weekly specials, and lunch specials.",
         "items": [
           {
             "name": "Dirty-Style Wings",
@@ -42,12 +42,7 @@ values
             "name": "TDT Chicken Nachos",
             "price": "Full 15 | Snack 11",
             "details": "White queso, red onion, jalapeño, cheddar cheese, tomato, green onion and cilantro with sriracha aioli."
-          }
-        ]
-      },
-      {
-        "title": "District Apps",
-        "items": [
+          },
           {
             "name": "Texas Guac",
             "price": "14",
@@ -108,16 +103,28 @@ values
             "name": "Potstickers",
             "price": "13",
             "details": "Pan-seared dumplings filled with pork and vegetables, drizzled with soy glaze. Served with a side of soy sauce for dipping."
-          }
+          },
+          { "name": "The District Burger*" },
+          { "name": "District Club" },
+          { "name": "Mini Mac Pot", "details": "Choice of one mac n’ cheese pot." },
+          { "name": "Signature Lunch Salad with Cup of Soup" },
+          { "name": "Hoosier Daddy Breaded Tenderloin" },
+          { "name": "Chicken Tacos (3)", "details": "Served with a breadstick and a side salad." },
+          { "name": "Indy’s Cheesesteak" },
+          { "name": "Monday", "details": "$2 off burgers, 22oz domestics 5, Jim Beam 5." },
+          { "name": "Tuesday", "details": "Tacos 12, Corona/Corona Premiere bottles 4, Margaritas 8." },
+          { "name": "Wednesday", "details": "Gen. JC’s Chicken 14, half-off select bottles of wine, High Noon 5, Jaeger Bomb 6." },
+          { "name": "Thursday", "details": "Most pints 5, Jack Daniels and flavors 6, Vegas Bombs 6, Buffalo Trace 6." },
+          { "name": "Friday", "details": "Cran’s Trout Almondine 18, Jameson & Green Tea shots 5, Modelo pints 5, Hiatus Silver 6, Fireball 5." },
+          { "name": "Saturday", "details": "Rhinegeist pints 5, Modelo 22oz 6, Bloody Mary 6, Mimosas 5." },
+          { "name": "Sunday", "details": "$2 off Wet ‘n Dirty & Dirty Style Wings, Sun King pints 5, Bloody Mary 6, Mimosas 5." }
         ]
       },
       {
-        "title": "Soups & Signature Salads",
-        "description": "Dressings: Asian Ginger, House-Made Ranch, Chunky Blue Cheese, Balsamic Vinaigrette, Caesar, Honey Mustard, French, Italian, Chipotle Ranch, Raspberry Walnut Vinaigrette. Add to any salad: Chicken 6, Shrimp 6, Salmon* 8, Filet* 8.",
+        "title": "Soups + Salads",
+        "description": "Dressings: Asian Ginger, House-Made Ranch, Chunky Blue Cheese, Balsamic Vinaigrette, Caesar, Honey Mustard, French, Italian, Chipotle Ranch, Raspberry Walnut Vinaigrette. Add to any salad: Chicken 6, Shrimp 6, Salmon* 8, Filet* 8. Soups: Cup 6 | Bowl 8.",
         "items": [
-          {
-            "name": "District Cobb"
-          },
+          { "name": "District Cobb" },
           {
             "name": "KB’s Super Food",
             "price": "13",
@@ -158,13 +165,7 @@ values
             "name": "Wedge",
             "price": "11",
             "details": "Iceberg wedge, bacon bits, blue cheese crumbles and grape tomatoes. Drizzled with house-made ranch."
-          }
-        ]
-      },
-      {
-        "title": "Soups",
-        "description": "Cup 6 | Bowl 8",
-        "items": [
+          },
           {
             "name": "Cactus Chili",
             "details": "A Southwestern style chili with ground beef, great northern beans, corn and cactus. Served with cheddar cheese and red onions. A fan favorite!"
@@ -173,39 +174,12 @@ values
             "name": "French Onion",
             "details": "Our signature homemade soup made with Indiana’s own Quaff-On! Busted Knuckle porter, red wine, simmered yellow onions and topped with a crouton and gruyere cheese."
           },
-          {
-            "name": "Soup of the Day"
-          }
+          { "name": "Soup of the Day" }
         ]
       },
       {
-        "title": "Damn Good Lunch Specials",
-        "description": "11 to 4 | Monday through Friday. Served with your choice of a regular side & drink. 14.50.",
-        "items": [
-          { "name": "The District Burger*" },
-          { "name": "District Club" },
-          { "name": "Mini Mac Pot", "details": "Choice of one mac n’ cheese pot." },
-          { "name": "Signature Lunch Salad with Cup of Soup" },
-          { "name": "Hoosier Daddy Breaded Tenderloin" },
-          { "name": "Chicken Tacos (3)", "details": "Served with a breadstick and a side salad." },
-          { "name": "Indy’s Cheesesteak" }
-        ]
-      },
-      {
-        "title": "Weekly Specials",
-        "items": [
-          { "name": "Monday", "details": "$2 off burgers, 22oz domestics 5, Jim Beam 5." },
-          { "name": "Tuesday", "details": "Tacos 12, Corona/Corona Premiere bottles 4, Margaritas 8." },
-          { "name": "Wednesday", "details": "Gen. JC’s Chicken 14, half-off select bottles of wine, High Noon 5, Jaeger Bomb 6." },
-          { "name": "Thursday", "details": "Most pints 5, Jack Daniels and flavors 6, Vegas Bombs 6, Buffalo Trace 6." },
-          { "name": "Friday", "details": "Cran’s Trout Almondine 18, Jameson & Green Tea shots 5, Modelo pints 5, Hiatus Silver 6, Fireball 5." },
-          { "name": "Saturday", "details": "Rhinegeist pints 5, Modelo 22oz 6, Bloody Mary 6, Mimosas 5." },
-          { "name": "Sunday", "details": "$2 off Wet ‘n Dirty & Dirty Style Wings, Sun King pints 5, Bloody Mary 6, Mimosas 5." }
-        ]
-      },
-      {
-        "title": "Steakburgers*",
-        "description": "Served on toasted brioche or pretzel bun with choice of regular side.",
+        "title": "Handhelds",
+        "description": "Burgers, sandwiches, wraps, and tacos.",
         "items": [
           {
             "name": "The Smash",
@@ -231,13 +205,7 @@ values
             "name": "Impossible",
             "price": "15",
             "details": "Impossible to tell it’s not meat! Provolone cheese, chipotle mayo, lettuce, tomato, onion, and pickle."
-          }
-        ]
-      },
-      {
-        "title": "Sammies & Wraps",
-        "description": "All sandwiches come with your choice of regular side.",
-        "items": [
+          },
           {
             "name": "Beef on Weck",
             "price": "16",
@@ -302,34 +270,7 @@ values
             "name": "Chipotle Chicken Quesadilla",
             "price": "16",
             "details": "Flour tortilla, cheddar cheese, pepper jack cheese, chipotle chicken, tomatoes, onions, street corn topped with chopped cilantro, served with bed of lettuce, pico de gallo, sour cream, guacamole, and Mexican rice."
-          }
-        ]
-      },
-      {
-        "title": "TDT Pizza",
-        "description": "Hand-made and damn good.",
-        "items": [
-          {
-            "name": "Pepperoni & Sausage",
-            "price": "14",
-            "details": "Spicy Italian sausage, pepperoni, mozzarella."
           },
-          {
-            "name": "Margherita",
-            "price": "14",
-            "details": "Garlic, olive oil, mozzarella, Parmesan, Roma tomato slices and fresh basil."
-          },
-          {
-            "name": "Al Pastor",
-            "price": "15",
-            "details": "Chorizo queso, mozzarella cheese, al pastor meat (pork), pineapple, diced yellow onion, avocado salsa and cilantro."
-          }
-        ]
-      },
-      {
-        "title": "TDT Tacos",
-        "description": "Three tacos served on a corn/flour blend tortilla with Mexican rice.",
-        "items": [
           {
             "name": "Birria",
             "price": "15",
@@ -358,45 +299,30 @@ values
         ]
       },
       {
-        "title": "Tenders",
+        "title": "Pizza + Entrees",
+        "description": "Pizzas, hearty plates, and tenders.",
         "items": [
+          {
+            "name": "Pepperoni & Sausage",
+            "price": "14",
+            "details": "Spicy Italian sausage, pepperoni, mozzarella."
+          },
+          {
+            "name": "Margherita",
+            "price": "14",
+            "details": "Garlic, olive oil, mozzarella, Parmesan, Roma tomato slices and fresh basil."
+          },
+          {
+            "name": "Al Pastor",
+            "price": "15",
+            "details": "Chorizo queso, mozzarella cheese, al pastor meat (pork), pineapple, diced yellow onion, avocado salsa and cilantro."
+          },
           {
             "name": "TDT Tenders",
             "price": "15.50",
             "details": "Hand-breaded and crispy. Served with fries and choice of two sauces.",
             "notes": "Sauce served on the side: Buffalo, Spicy Bourbon, Hot Garlic, Hoosier Hot, BBQ."
-          }
-        ]
-      },
-      {
-        "title": "Sides",
-        "items": [
-          { "name": "Seasoned Fries", "price": "5" },
-          { "name": "Sweet Potato Fries", "price": "5" },
-          { "name": "Steamed Broccoli", "price": "5" },
-          { "name": "White Cheddar Mashed Potatoes", "price": "5" },
-          { "name": "Tater Tots", "price": "5" },
-          { "name": "Creamy Cole Slaw", "price": "5" },
-          { "name": "Mexican Rice", "price": "5" },
-          { "name": "Asian Slaw", "price": "5" },
-          { "name": "Cottage Cheese", "price": "5" }
-        ]
-      },
-      {
-        "title": "Premium Sides",
-        "items": [
-          { "name": "Tap House Salad", "price": "6" },
-          { "name": "Seasonal Vegetables", "price": "6" },
-          { "name": "Mac & Cheese", "price": "6" },
-          { "name": "Cajun Butter Corn Cob Skewers", "price": "6" },
-          { "name": "Bacon-Wrapped Asparagus", "price": "7" },
-          { "name": "Caesar Salad", "price": "7" },
-          { "name": "Crispy Bacon Brussels Sprouts", "price": "7" }
-        ]
-      },
-      {
-        "title": "Mains",
-        "items": [
+          },
           { "name": "District Mac", "price": "14", "details": "Parmesan cheese and white queso topped with a toasted Parmesan crust." },
           { "name": "Daddy Mac 2.0", "price": "16", "details": "Cherrywood smoked bacon, cheddar cheese, and grilled smoked pork belly. Drizzled with BBQ sauce." },
           { "name": "Chicken & Shrimp Alfredo", "price": "18", "details": "Fettuccini pasta tossed with Alfredo sauce, sautéed shrimp, Parmesan, sautéed red onions, and garlic topped with blackened chicken. Served with a breadstick." },
@@ -415,20 +341,31 @@ values
         ]
       },
       {
-        "title": "Kid’s Menu",
-        "description": "12 and under. Served with choice of regular side. Includes milk or fountain drink.",
+        "title": "Sides + Kids + Desserts",
+        "description": "Sides, kids meals, and desserts.",
         "items": [
+          { "name": "Seasoned Fries", "price": "5" },
+          { "name": "Sweet Potato Fries", "price": "5" },
+          { "name": "Steamed Broccoli", "price": "5" },
+          { "name": "White Cheddar Mashed Potatoes", "price": "5" },
+          { "name": "Tater Tots", "price": "5" },
+          { "name": "Creamy Cole Slaw", "price": "5" },
+          { "name": "Mexican Rice", "price": "5" },
+          { "name": "Asian Slaw", "price": "5" },
+          { "name": "Cottage Cheese", "price": "5" },
+          { "name": "Tap House Salad", "price": "6" },
+          { "name": "Seasonal Vegetables", "price": "6" },
+          { "name": "Mac & Cheese", "price": "6" },
+          { "name": "Cajun Butter Corn Cob Skewers", "price": "6" },
+          { "name": "Bacon-Wrapped Asparagus", "price": "7" },
+          { "name": "Caesar Salad", "price": "7" },
+          { "name": "Crispy Bacon Brussels Sprouts", "price": "7" },
           { "name": "Fettuccine Pasta", "price": "8", "details": "With your choice of Alfredo, marinara, or butter." },
           { "name": "Mac & Cheese", "price": "8" },
           { "name": "Chicken Tenders", "price": "8" },
           { "name": "Mini Corn Dogs", "price": "8" },
           { "name": "Mini Cheeseburgers", "price": "8" },
-          { "name": "Cheese Pizza", "price": "9" }
-        ]
-      },
-      {
-        "title": "Happy Endings",
-        "items": [
+          { "name": "Cheese Pizza", "price": "9" },
           { "name": "Brownie Sundae", "price": "9", "details": "Ghirardelli triple chocolate brownie with vanilla ice cream, whipped cream, and caramel sauce." },
           { "name": "Cast Iron Cookie", "price": "9", "details": "Chocolate chip cookie topped with vanilla ice cream and your choice of chocolate or caramel sauce." },
           { "name": "Bread Pudding Bites", "price": "9", "details": "Deep-fried bread pudding drizzled with warm caramel sauce, topped with ice cream and sprinkled with cinnamon sugar." },
