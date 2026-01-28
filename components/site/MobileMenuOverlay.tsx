@@ -16,6 +16,8 @@ type SubmenuKey = "menu" | "private-events" | null
 
 export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
   const [submenu, setSubmenu] = useState<SubmenuKey>(null)
+  const [isMounted, setIsMounted] = useState(open)
+  const [isVisible, setIsVisible] = useState(open)
 
   useEffect(() => {
     if (!open) return
@@ -40,10 +42,27 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
     setSubmenu(null)
   }, [open])
 
-  if (!open) return null
+  useEffect(() => {
+    if (open) {
+      setIsMounted(true)
+      requestAnimationFrame(() => setIsVisible(true))
+      return
+    }
+
+    if (!isMounted) return
+    setIsVisible(false)
+    const timeout = setTimeout(() => setIsMounted(false), 220)
+    return () => clearTimeout(timeout)
+  }, [open, isMounted])
+
+  if (!isMounted) return null
 
   return (
-    <div className="fixed inset-0 z-50 h-[100svh]">
+    <div
+      className={`fixed inset-0 z-50 h-[100svh] transition-opacity duration-200 ease-out ${
+        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+      }`}
+    >
       <div role="presentation" className="pointer-events-none absolute inset-0 h-[100svh] bg-black/98" />
       <div className="pointer-events-none absolute inset-0">
         <div className="site-glow-layer" />
@@ -81,10 +100,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
             <p className="mt-3 text-lg font-semibold">Start an order in seconds.</p>
             <p className="mt-2 text-sm text-white/60">Delivery, carry-out, or the mobile flow.</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Button href={quickActions[0].href} variant="secondary" size="lg">
+              <Button href={quickActions[0].href} variant="secondary" size="lg" onClick={onClose}>
                 Order Now
               </Button>
-              <Button href="/experience" variant="outline" size="lg" className="border-white/30 text-white">
+              <Button href="/experience" variant="outline" size="lg" className="border-white/30 text-white" onClick={onClose}>
                 Mobile Experience
               </Button>
             </div>
@@ -102,10 +121,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                   <p className="text-xs uppercase tracking-[0.35em] text-white/60">Menu</p>
                   <p className="mt-2 text-xl font-semibold">Pick a menu.</p>
                   <div className="mt-4 grid gap-2">
-                    <Button href="/menu/lunch-and-dinner" variant="outline" size="sm" className="border-white/30 text-white">
+                      <Button href="/menu/lunch-and-dinner" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
                       Lunch + Dinner
                     </Button>
-                    <Button href="/menu/drinks" variant="outline" size="sm" className="border-white/30 text-white">
+                      <Button href="/menu/drinks" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
                       Drinks
                     </Button>
                   </div>
@@ -120,10 +139,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                   <p className="text-xs uppercase tracking-[0.35em] text-white/60">Private Events</p>
                   <p className="mt-2 text-xl font-semibold">Choose a location.</p>
                   <div className="mt-4 grid gap-2">
-                    <Button href="/private-events/northside" variant="outline" size="sm" className="border-white/30 text-white">
+                      <Button href="/private-events/northside" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
                       Northside
                     </Button>
-                    <Button href="/private-events/downtown" variant="outline" size="sm" className="border-white/30 text-white">
+                      <Button href="/private-events/downtown" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
                       Downtown
                     </Button>
                   </div>
@@ -183,10 +202,10 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
                     <p className="text-sm text-white/70">{location.phone}</p>
                   </div>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    <Button href={location.mapUrl} variant="outline" size="sm" className="border-white/20 text-white">
+                    <Button href={location.mapUrl} variant="outline" size="sm" className="border-white/20 text-white" onClick={onClose}>
                       Directions
                     </Button>
-                    <Button href={location.orderUrl} variant="secondary" size="sm">
+                    <Button href={location.orderUrl} variant="secondary" size="sm" onClick={onClose}>
                       Order
                     </Button>
                   </div>
@@ -197,7 +216,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
           <div className="flex flex-wrap gap-2">
             {quickActions.slice(1).map((action) => (
-              <Button key={action.label} href={action.href} variant="outline" size="sm" className="border-white/20 text-white">
+              <Button key={action.label} href={action.href} variant="outline" size="sm" className="border-white/20 text-white" onClick={onClose}>
                 {action.label}
               </Button>
             ))}

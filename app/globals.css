@@ -123,7 +123,7 @@
     @apply bg-neutral-950;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-neutral-950 text-white;
   }
   ::selection {
     @apply bg-amber-500 text-black;

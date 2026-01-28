@@ -45,10 +45,17 @@ export function Button({
   const classes = cn(buttonVariants({ variant, size, className }))
 
   if (href) {
+    const { children, type: _type, ...rest } = props
     const external = href.startsWith("http")
     return (
-      <Link href={href} className={classes} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}>
-        {props.children}
+      <Link
+        href={href}
+        className={classes}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noreferrer" : undefined}
+        {...rest}
+      >
+        {children}
       </Link>
     )
   }
