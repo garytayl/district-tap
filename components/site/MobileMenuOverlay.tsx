@@ -115,75 +115,77 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
               <span className="text-xs uppercase tracking-[0.3em] text-white/40">Explore</span>
             </div>
             <p className="text-sm text-white/60">Jump into menus, events, and pages.</p>
-            {submenu === "menu" ? (
-              <div className="space-y-3">
-                <div className="glass-tile px-6 py-5">
-                  <p className="text-xs uppercase tracking-[0.35em] text-white/60">Menu</p>
-                  <p className="mt-2 text-xl font-semibold">Pick a menu.</p>
-                  <div className="mt-4 grid gap-2">
-                      <Button href="/menu/lunch-and-dinner" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
-                      Lunch + Dinner
-                    </Button>
-                      <Button href="/menu/drinks" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
-                      Drinks
-                    </Button>
-                  </div>
-                </div>
-                <Button type="button" variant="outline" size="sm" className="border-white/20 text-white" onClick={() => setSubmenu(null)}>
-                  Back
-                </Button>
-              </div>
-            ) : submenu === "private-events" ? (
-              <div className="space-y-3">
-                <div className="glass-tile px-6 py-5">
-                  <p className="text-xs uppercase tracking-[0.35em] text-white/60">Private Events</p>
-                  <p className="mt-2 text-xl font-semibold">Choose a location.</p>
-                  <div className="mt-4 grid gap-2">
-                      <Button href="/private-events/northside" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
-                      Northside
-                    </Button>
-                      <Button href="/private-events/downtown" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
-                      Downtown
-                    </Button>
-                  </div>
-                </div>
-                <Button type="button" variant="outline" size="sm" className="border-white/20 text-white" onClick={() => setSubmenu(null)}>
-                  Back
-                </Button>
-              </div>
-            ) : (
-              <div className="grid gap-3">
-                {navLinks.map((link) => {
-                  const hasMenuSubmenu = link.label === "Menu"
-                  const hasPrivateEventsSubmenu = link.label === "Private Events"
+            <div className="grid gap-3">
+              {navLinks.map((link) => {
+                const hasMenuSubmenu = link.label === "Menu"
+                const hasPrivateEventsSubmenu = link.label === "Private Events"
 
-                  if (hasMenuSubmenu || hasPrivateEventsSubmenu) {
-                    return (
-                      <button
-                        key={link.label}
-                        type="button"
-                        onClick={() => setSubmenu(hasMenuSubmenu ? "menu" : "private-events")}
-                        className="glass-tile px-6 py-5 text-left transition hover:border-white/40"
-                      >
-                        <p className="text-lg font-semibold text-white">{link.label}</p>
-                        <p className="mt-1 text-sm text-white/60">Tap to explore</p>
-                      </button>
-                    )
-                  }
-
+                if (hasMenuSubmenu) {
                   return (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      onClick={onClose}
-                      className="glass-tile px-6 py-5 text-lg font-semibold text-white transition hover:border-white/40 hover:text-amber-200"
-                    >
-                      {link.label}
-                    </Link>
+                    <div key={link.label} className="glass-tile px-6 py-5">
+                      <button
+                        type="button"
+                        onClick={() => setSubmenu(submenu === "menu" ? null : "menu")}
+                        className="flex w-full items-center justify-between text-left"
+                      >
+                        <span className="text-lg font-semibold text-white">{link.label}</span>
+                        <span className="text-xs uppercase tracking-[0.3em] text-white/50">
+                          {submenu === "menu" ? "Hide" : "Open"}
+                        </span>
+                      </button>
+                      {submenu === "menu" ? (
+                        <div className="mt-4 grid gap-2">
+                          <Button href="/menu/lunch-and-dinner" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
+                            Lunch + Dinner
+                          </Button>
+                          <Button href="/menu/drinks" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
+                            Drinks
+                          </Button>
+                        </div>
+                      ) : null}
+                    </div>
                   )
-                })}
-              </div>
-            )}
+                }
+
+                if (hasPrivateEventsSubmenu) {
+                  return (
+                    <div key={link.label} className="glass-tile px-6 py-5">
+                      <button
+                        type="button"
+                        onClick={() => setSubmenu(submenu === "private-events" ? null : "private-events")}
+                        className="flex w-full items-center justify-between text-left"
+                      >
+                        <span className="text-lg font-semibold text-white">{link.label}</span>
+                        <span className="text-xs uppercase tracking-[0.3em] text-white/50">
+                          {submenu === "private-events" ? "Hide" : "Open"}
+                        </span>
+                      </button>
+                      {submenu === "private-events" ? (
+                        <div className="mt-4 grid gap-2">
+                          <Button href="/private-events/northside" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
+                            Northside
+                          </Button>
+                          <Button href="/private-events/downtown" variant="outline" size="sm" className="border-white/30 text-white" onClick={onClose}>
+                            Downtown
+                          </Button>
+                        </div>
+                      ) : null}
+                    </div>
+                  )
+                }
+
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={onClose}
+                    className="glass-tile px-6 py-5 text-lg font-semibold text-white transition hover:border-white/40 hover:text-amber-200"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
+            </div>
           </div>
 
           <div className="space-y-3">
