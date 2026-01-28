@@ -44,11 +44,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
 
   return (
     <div className="fixed inset-0 z-50 h-[100svh]">
-      <div
-        role="presentation"
-        onClick={onClose}
-        className="absolute inset-0 h-[100svh] bg-black/95"
-      />
+      <div role="presentation" className="pointer-events-none absolute inset-0 h-[100svh] bg-black/95" />
       <div className="pointer-events-none absolute inset-0">
         <div className="site-glow-layer" />
         <div className="absolute -left-24 top-10 h-56 w-56 rounded-full bg-amber-500/20 blur-3xl" />
@@ -57,7 +53,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
         <div className="absolute inset-0 site-noise" />
       </div>
 
-      <div className="relative z-10 flex min-h-[100svh] w-full flex-col text-white">
+      <div className="relative z-10 flex min-h-[100svh] w-full flex-col text-white pointer-events-auto">
         <div className="flex items-center justify-between px-6 pt-6">
           <div className="flex items-center gap-3">
             <div className="relative h-9 w-9">
@@ -76,7 +72,7 @@ export function MobileMenuOverlay({ open, onClose }: MobileMenuOverlayProps) {
           </Button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-12 pt-8 [scrollbar-gutter:stable]">
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-12 pt-8 overscroll-contain touch-pan-y [scrollbar-gutter:stable]">
           <div className="space-y-6">
             <div className="glass-panel px-6 py-7">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">Quick order</p>
