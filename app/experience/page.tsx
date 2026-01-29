@@ -38,7 +38,7 @@ function normalizePhone(phone: string) {
 
 export default function MobileExperience() {
   const [introStage, setIntroStage] = useState<
-    "black" | "logo" | "move" | "headline" | "ready"
+    "black" | "logo" | "logoOut" | "headline" | "rest" | "ready"
   >("black")
   const [step, setStep] = useState<"welcome" | "location" | "experience">("welcome")
   const [subStep, setSubStep] = useState<"options" | "menu" | "dine" | "delivery">("options")
@@ -114,10 +114,11 @@ export default function MobileExperience() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setIntroStage("logo"), 140),
-      setTimeout(() => setIntroStage("move"), 620),
-      setTimeout(() => setIntroStage("headline"), 1050),
-      setTimeout(() => setIntroStage("ready"), 1400),
+      setTimeout(() => setIntroStage("logo"), 200),
+      setTimeout(() => setIntroStage("logoOut"), 1400),
+      setTimeout(() => setIntroStage("headline"), 1700),
+      setTimeout(() => setIntroStage("rest"), 4200),
+      setTimeout(() => setIntroStage("ready"), 4500),
     ]
 
     return () => {
@@ -198,34 +199,39 @@ export default function MobileExperience() {
     }, 220)
   }
 
-  const showHeadline = introStage === "headline" || introStage === "ready"
-  const showRest = introStage === "ready"
+  const showHeadline = introStage === "headline" || introStage === "rest" || introStage === "ready"
+  const showRest = introStage === "rest" || introStage === "ready"
 
   return (
     <main className="relative min-h-[100svh] overflow-hidden bg-neutral-950 text-white">
       <div
-        className={`fixed inset-0 z-50 bg-black transition-opacity duration-500 ${
-          introStage === "ready" ? "opacity-0 pointer-events-none" : "opacity-100"
+        className={`fixed inset-0 z-50 bg-black transition-opacity duration-700 ${
+          introStage === "headline" || introStage === "rest" || introStage === "ready"
+            ? "opacity-0 pointer-events-none"
+            : "opacity-100"
         }`}
       >
         <div
-          className={`absolute transition-all duration-700 ease-out ${
-            introStage === "move" || introStage === "headline" || introStage === "ready"
-              ? "left-6 top-6 translate-x-0 translate-y-0 scale-75 opacity-100"
-              : "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100"
-          } ${
-            introStage === "black" ? "opacity-0" : "opacity-100"
+          className={`absolute left-1/2 top-1/2 transition-all duration-1000 ease-out ${
+            introStage === "black"
+              ? "opacity-0 scale-75"
+              : introStage === "logoOut"
+                ? "opacity-0 scale-110"
+                : "opacity-100 scale-100"
           }`}
+          style={{
+            width: "72px",
+            height: "72px",
+            transform: "translate(-50%, -50%)",
+          }}
         >
-          <div className="relative h-14 w-14">
-            <Image
-              src="/logo_mark.png"
-              alt="The District Tap"
-              fill
-              className="object-contain brightness-0 invert"
-              priority
-            />
-          </div>
+          <Image
+            src="/logo_mark.png"
+            alt="The District Tap"
+            fill
+            className="object-contain brightness-0 invert"
+            priority
+          />
         </div>
       </div>
       <div className="pointer-events-none absolute inset-0">

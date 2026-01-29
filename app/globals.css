@@ -152,14 +152,14 @@ body.experience-mode {
 
 body[data-site-intro="black"] .site-intro-headline,
 body[data-site-intro="logo"] .site-intro-headline,
-body[data-site-intro="move"] .site-intro-headline {
+body[data-site-intro="logoOut"] .site-intro-headline {
   opacity: 0;
   transform: translateY(12px);
 }
 
 body[data-site-intro="black"] .site-intro-rest,
 body[data-site-intro="logo"] .site-intro-rest,
-body[data-site-intro="move"] .site-intro-rest,
+body[data-site-intro="logoOut"] .site-intro-rest,
 body[data-site-intro="headline"] .site-intro-rest {
   opacity: 0;
   transform: translateY(12px);
