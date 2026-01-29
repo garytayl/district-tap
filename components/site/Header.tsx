@@ -16,7 +16,12 @@ export function Header() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-black/90 text-white backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-4">
           <div className="flex items-center justify-between gap-3">
-            <Link href="/" className="flex min-w-0 items-center gap-3">
+            <Link href="/" className="relative flex min-w-0 items-center gap-3">
+              <span
+                data-site-intro-target="logo"
+                aria-hidden="true"
+                className="absolute left-0 top-1/2 h-9 w-9 -translate-y-1/2"
+              />
               <div className="relative h-9 w-24 sm:h-10 sm:w-32">
                 <Image src="/logo_primary.png" alt="The District Tap" fill className="object-contain brightness-0 invert" priority />
               </div>

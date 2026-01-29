@@ -147,7 +147,7 @@ body.experience-mode {
 }
 
 .site-intro-rest {
-  transition-delay: 80ms;
+  transition-delay: 160ms;
 }
 
 body[data-site-intro="black"] .site-intro-headline,

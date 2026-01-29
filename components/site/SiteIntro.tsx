@@ -10,16 +10,20 @@ import { Header } from "@/components/site/Header"
 type IntroStage = "black" | "logo" | "move" | "headline" | "ready"
 
 const INTRO_TIMINGS = {
-  logo: 140,
-  move: 620,
-  headline: 1050,
-  ready: 1400,
+  logo: 220,
+  move: 1200,
+  headline: 2000,
+  ready: 2700,
 } as const
+
+const CENTER_SIZE = 72
+const FALLBACK_TARGET = { left: 24, top: 24, width: 36, height: 36 }
 
 export function SiteIntro({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isHome = pathname === "/"
   const [introStage, setIntroStage] = useState<IntroStage>(isHome ? "black" : "ready")
+  const [logoTarget, setLogoTarget] = useState(FALLBACK_TARGET)
 
   useEffect(() => {
     if (!isHome) {
@@ -47,6 +51,32 @@ export function SiteIntro({ children }: { children: React.ReactNode }) {
   }, [isHome])
 
   useEffect(() => {
+    if (!isHome) return
+
+    const updateTarget = () => {
+      const target = document.querySelector<HTMLElement>("[data-site-intro-target='logo']")
+      if (!target) return
+      const rect = target.getBoundingClientRect()
+      setLogoTarget({
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        height: rect.height,
+      })
+    }
+
+    const raf = window.requestAnimationFrame(updateTarget)
+    const timeout = window.setTimeout(updateTarget, 320)
+    window.addEventListener("resize", updateTarget)
+
+    return () => {
+      window.cancelAnimationFrame(raf)
+      window.clearTimeout(timeout)
+      window.removeEventListener("resize", updateTarget)
+    }
+  }, [isHome])
+
+  useEffect(() => {
     if (typeof document === "undefined") return
     document.body.dataset.siteIntro = isHome ? introStage : "ready"
 
@@ -55,30 +85,45 @@ export function SiteIntro({ children }: { children: React.ReactNode }) {
     }
   }, [introStage, isHome])
 
+  const targetSize = Math.min(logoTarget.width, logoTarget.height) || FALLBACK_TARGET.width
+  const logoStyle =
+    introStage === "move" || introStage === "headline" || introStage === "ready"
+      ? {
+          left: `${logoTarget.left}px`,
+          top: `${logoTarget.top}px`,
+          width: `${targetSize}px`,
+          height: `${targetSize}px`,
+          transform: "translate(0, 0)",
+        }
+      : {
+          left: "50%",
+          top: "50%",
+          width: `${CENTER_SIZE}px`,
+          height: `${CENTER_SIZE}px`,
+          transform: "translate(-50%, -50%)",
+        }
+
   return (
     <>
       {isHome ? (
         <div
-          className={`fixed inset-0 z-50 bg-black transition-opacity duration-500 ${
+          className={`fixed inset-0 z-50 bg-black transition-opacity duration-700 ${
             introStage === "ready" ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
         >
           <div
-            className={`absolute transition-all duration-700 ease-out ${
-              introStage === "move" || introStage === "headline" || introStage === "ready"
-                ? "left-6 top-6 translate-x-0 translate-y-0 scale-75 opacity-100"
-                : "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100"
-            } ${introStage === "black" ? "opacity-0" : "opacity-100"}`}
+            className={`absolute transition-all duration-1000 ease-out ${
+              introStage === "black" ? "opacity-0" : "opacity-100"
+            }`}
+            style={logoStyle}
           >
-            <div className="relative h-14 w-14">
-              <Image
-                src="/logo_mark.png"
-                alt="The District Tap"
-                fill
-                className="object-contain brightness-0 invert"
-                priority
-              />
-            </div>
+            <Image
+              src="/logo_mark.png"
+              alt="The District Tap"
+              fill
+              className="object-contain brightness-0 invert"
+              priority
+            />
           </div>
         </div>
       ) : null}
