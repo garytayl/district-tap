@@ -17,7 +17,7 @@ const INTRO_TIMINGS = {
   ready: 4500,
 } as const
 
-const CENTER_SIZE = 72
+const CENTER_SIZE = { width: 220, height: 60 }
 
 export function SiteIntro({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -69,21 +69,21 @@ export function SiteIntro({ children }: { children: React.ReactNode }) {
           }`}
         >
           <div
-            className={`absolute left-1/2 top-1/2 transition-all duration-1000 ease-out ${
+            className={`absolute left-1/2 top-1/2 transition-all duration-1200 ease-out ${
               introStage === "black"
-                ? "opacity-0 scale-75"
+                ? "opacity-0 scale-95"
                 : introStage === "logoOut"
-                  ? "opacity-0 scale-110"
+                  ? "opacity-0 scale-105"
                   : "opacity-100 scale-100"
             }`}
             style={{
-              width: `${CENTER_SIZE}px`,
-              height: `${CENTER_SIZE}px`,
+              width: `${CENTER_SIZE.width}px`,
+              height: `${CENTER_SIZE.height}px`,
               transform: "translate(-50%, -50%)",
             }}
           >
             <Image
-              src="/logo_mark.png"
+              src="/logo_primary.png"
               alt="The District Tap"
               fill
               className="object-contain brightness-0 invert"
