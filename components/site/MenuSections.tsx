@@ -15,6 +15,41 @@ export function MenuSections({ menu }: MenuSectionsProps) {
   const menuTopRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+    const currentState = window.history.state ?? {}
+    if (!("menuCategory" in currentState)) {
+      window.history.replaceState(
+        { ...currentState, menuCategory: "" },
+        "",
+        window.location.href,
+      )
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const handlePopState = (event: PopStateEvent) => {
+      const nextCategory =
+        typeof event.state?.menuCategory === "string" ? event.state.menuCategory : ""
+      setIsNavigating(true)
+      setActiveTitle(nextCategory)
+    }
+
+    window.addEventListener("popstate", handlePopState)
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      setActiveTitle("")
+      return
+    }
+    const currentCategory =
+      typeof window.history.state?.menuCategory === "string" ? window.history.state.menuCategory : ""
+    if (currentCategory && menu.categories.some((category) => category.title === currentCategory)) {
+      setActiveTitle(currentCategory)
+      return
+    }
     setActiveTitle("")
   }, [menu.categories])
 
@@ -46,6 +81,14 @@ export function MenuSections({ menu }: MenuSectionsProps) {
                 key={category.title}
                 type="button"
                 onClick={() => {
+                  if (typeof window !== "undefined") {
+                    const currentState = window.history.state ?? {}
+                    window.history.pushState(
+                      { ...currentState, menuCategory: category.title },
+                      "",
+                      window.location.href,
+                    )
+                  }
                   setIsNavigating(true)
                   setActiveTitle(category.title)
                 }}
@@ -77,6 +120,14 @@ export function MenuSections({ menu }: MenuSectionsProps) {
               type="button"
               onClick={() => {
                 setIsNavigating(true)
+                if (
+                  typeof window !== "undefined" &&
+                  typeof window.history.state?.menuCategory === "string" &&
+                  window.history.state.menuCategory.length > 0
+                ) {
+                  window.history.back()
+                  return
+                }
                 setActiveTitle("")
               }}
               className="rounded-full border border-white/15 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/60 transition hover:border-white/40 hover:text-white"

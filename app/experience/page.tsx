@@ -48,6 +48,8 @@ export default function MobileExperience() {
   const [menuLoading, setMenuLoading] = useState(false)
   const [menuError, setMenuError] = useState<string | null>(null)
   const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hasMountedRef = useRef(false)
+  const isHandlingPopStateRef = useRef(false)
   const selectedLocation = useMemo(
     () => (selectedLocationId ? locations[selectedLocationId] : null),
     [selectedLocationId],
@@ -59,6 +61,56 @@ export default function MobileExperience() {
       document.body.classList.remove("experience-mode")
     }
   }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const experienceState = window.history.state?.experience
+    if (!experienceState) return
+    isHandlingPopStateRef.current = true
+    setStep(experienceState.step ?? "welcome")
+    setSubStep(experienceState.subStep ?? "options")
+    setSelectedLocationId(experienceState.locationId ?? null)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const handlePopState = (event: PopStateEvent) => {
+      const experienceState = event.state?.experience
+      if (!experienceState) return
+      isHandlingPopStateRef.current = true
+      setStep(experienceState.step ?? "welcome")
+      setSubStep(experienceState.subStep ?? "options")
+      setSelectedLocationId(experienceState.locationId ?? null)
+    }
+
+    window.addEventListener("popstate", handlePopState)
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const nextState = {
+      ...(window.history.state ?? {}),
+      experience: {
+        step,
+        subStep,
+        locationId: selectedLocationId,
+      },
+    }
+
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true
+      window.history.replaceState(nextState, "", window.location.href)
+      return
+    }
+
+    if (isHandlingPopStateRef.current) {
+      isHandlingPopStateRef.current = false
+      return
+    }
+
+    window.history.pushState(nextState, "", window.location.href)
+  }, [step, subStep, selectedLocationId])
 
   useEffect(() => {
     const timers = [
