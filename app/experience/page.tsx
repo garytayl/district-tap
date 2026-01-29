@@ -37,6 +37,9 @@ function normalizePhone(phone: string) {
 }
 
 export default function MobileExperience() {
+  const [introStage, setIntroStage] = useState<
+    "black" | "logo" | "move" | "headline" | "ready"
+  >("black")
   const [step, setStep] = useState<"welcome" | "location" | "experience">("welcome")
   const [subStep, setSubStep] = useState<"options" | "menu" | "dine" | "delivery">("options")
   const [selectedLocationId, setSelectedLocationId] = useState<keyof typeof locations | null>(null)
@@ -54,6 +57,19 @@ export default function MobileExperience() {
     document.body.classList.add("experience-mode")
     return () => {
       document.body.classList.remove("experience-mode")
+    }
+  }, [])
+
+  useEffect(() => {
+    const timers = [
+      setTimeout(() => setIntroStage("logo"), 140),
+      setTimeout(() => setIntroStage("move"), 620),
+      setTimeout(() => setIntroStage("headline"), 1050),
+      setTimeout(() => setIntroStage("ready"), 1400),
+    ]
+
+    return () => {
+      timers.forEach((timer) => clearTimeout(timer))
     }
   }, [])
 
@@ -130,8 +146,36 @@ export default function MobileExperience() {
     }, 220)
   }
 
+  const showHeadline = introStage === "headline" || introStage === "ready"
+  const showRest = introStage === "ready"
+
   return (
     <main className="relative min-h-[100svh] overflow-hidden bg-neutral-950 text-white">
+      <div
+        className={`fixed inset-0 z-50 bg-black transition-opacity duration-500 ${
+          introStage === "ready" ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      >
+        <div
+          className={`absolute transition-all duration-700 ease-out ${
+            introStage === "move" || introStage === "headline" || introStage === "ready"
+              ? "left-6 top-6 translate-x-0 translate-y-0 scale-75 opacity-100"
+              : "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100"
+          } ${
+            introStage === "black" ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div className="relative h-14 w-14">
+            <Image
+              src="/logo_mark.png"
+              alt="The District Tap"
+              fill
+              className="object-contain brightness-0 invert"
+              priority
+            />
+          </div>
+        </div>
+      </div>
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-20 top-10 h-56 w-56 rounded-full bg-amber-500/20 blur-3xl" />
         <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-orange-500/20 blur-[100px]" />
@@ -141,7 +185,11 @@ export default function MobileExperience() {
       </div>
 
       <div className="relative mx-auto flex w-full flex-col px-6 pb-24 pt-6 sm:px-10 sm:pt-10">
-        <div className="flex items-center justify-between gap-3">
+        <div
+          className={`flex items-center justify-between gap-3 transition-opacity duration-500 ${
+            showRest ? "opacity-100" : "opacity-0"
+          }`}
+        >
           <div className="relative h-9 w-9">
             <Image
               src="/logo_mark.png"
@@ -188,16 +236,34 @@ export default function MobileExperience() {
             } animate-in fade-in-0 slide-in-from-bottom-8`}
           >
             <div className="space-y-5">
-              <p className="text-xs uppercase tracking-[0.4em] text-white/50">Welcome</p>
-              <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">Hungry? You are in the right place.</h1>
-              <p className="text-lg text-white/70 sm:text-xl">
+              <p
+                className={`text-xs uppercase tracking-[0.4em] text-white/50 transition-all duration-500 ${
+                  showHeadline ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                }`}
+              >
+                Welcome
+              </p>
+              <h1
+                className={`text-5xl font-semibold leading-tight transition-all duration-500 sm:text-6xl ${
+                  showHeadline ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                }`}
+              >
+                Hungry? You are in the right place.
+              </h1>
+              <p
+                className={`text-lg text-white/70 transition-all duration-500 sm:text-xl ${
+                  showRest ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                }`}
+              >
                 Meet The District Tap. Two Indianapolis locations, one massive menu, and fast ways to order.
               </p>
             </div>
             <Button
               variant="secondary"
               size="lg"
-              className="text-base sm:text-lg active:scale-[0.98] transition"
+              className={`text-base transition active:scale-[0.98] sm:text-lg ${
+                showRest ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
               onClick={() => advanceStep("location")}
             >
               Find your location

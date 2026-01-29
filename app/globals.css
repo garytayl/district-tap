@@ -139,6 +139,40 @@ body.experience-mode {
   background-color: #0a0a0a;
 }
 
+.site-intro-headline,
+.site-intro-rest {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.site-intro-rest {
+  transition-delay: 80ms;
+}
+
+body[data-site-intro="black"] .site-intro-headline,
+body[data-site-intro="logo"] .site-intro-headline,
+body[data-site-intro="move"] .site-intro-headline {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+body[data-site-intro="black"] .site-intro-rest,
+body[data-site-intro="logo"] .site-intro-rest,
+body[data-site-intro="move"] .site-intro-rest,
+body[data-site-intro="headline"] .site-intro-rest {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-intro-headline,
+  .site-intro-rest {
+    transition: none;
+    transform: translateY(0);
+  }
+}
+
 .glass-panel {
   @apply relative overflow-hidden rounded-[36px] border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.35)];
 }

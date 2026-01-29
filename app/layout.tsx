@@ -2,8 +2,7 @@ import type { Metadata } from "next"
 import { Geist_Mono, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 
-import { Footer } from "@/components/site/Footer"
-import { Header } from "@/components/site/Header"
+import { SiteIntro } from "@/components/site/SiteIntro"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -41,9 +40,7 @@ export default function RootLayout({
           <div className="absolute bottom-0 left-1/3 h-96 w-96 rounded-full bg-red-500/10 blur-[180px]" />
           <div className="absolute inset-0 site-noise" />
         </div>
-        <Header />
-        {children}
-        <Footer />
+        <SiteIntro>{children}</SiteIntro>
       </body>
     </html>
   )
